@@ -4,11 +4,15 @@ block content
     form(method="POST")
         if errorMsg
             div.error-msg=errorMsg
+
         label(for="email") 이메일
         input(name="email", id="email",placeholder="이메일", type="email", required)
+
         label(for="password") 비밀번호
         input(name="password", id="password",placeholder="비밀번호", type="password", required, minLength="4", autocomplete="new-password")
+
         input(type="submit", value="로그인")
+        
         div.auth-switch
             span 처음이신가요?
             a(href="/join") 회원가입

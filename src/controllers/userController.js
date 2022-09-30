@@ -4,10 +4,10 @@ import bcrypt from "bcrypt";
 export const getJoin = (req, res) => res.render("join", { pageTitle: "회원가입" });
 
 export const postJoin = async (req, res) => {
-  const { email, password, password2, nickname } = req.body;
+  const { email, password, passwordConfirmation, nickname } = req.body;
   const pageTitle = "회원가입";
 
-  if (password !== password2) {
+  if (password !== passwordConfirmation) {
     return res.status(400).render("join", { pageTitle, errorMsg: "비밀번호가 일치하지 않습니다." });
   }
 
@@ -50,13 +50,73 @@ export const postLogin = async (req, res) => {
   return res.redirect("/");
 };
 
-export const logout = (req, res) => res.send("logout");
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.redirect("/");
+};
 
-export const getEdit = (req, res) => res.send("getEdit");
-export const postEdit = (req, res) => res.send("postEdit");
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "프로필" });
+};
 
-export const getChangePw = (req, res) => res.send("getChangePw");
-export const postChangePw = (req, res) => res.send("postChangePw");
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { email, nickname },
+  } = req;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      email,
+      nickname,
+    },
+    { new: true }
+  );
+
+  req.session.user = updatedUser;
+  // [todo] flash 변경되었습니다.
+  return res.redirect("/users/edit");
+};
+
+export const getChangePw = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    // [todo] flash 비밀번호 변경 대상이 아닙니다.
+    return res.redirect("/");
+  }
+  return res.render("change-pw", { pageTitle: "비밀번호 변경" });
+};
+
+export const postChangePw = async (req, res) => {
+  const {
+    session: { user: _id },
+    body: { oldPw, password, passwordConfirmation },
+  } = req;
+  const pageTitle = "비밀번호 변경";
+
+  const user = await User.findById(_id);
+
+  const pwMatch = await bcrypt.compare(oldPw, user.password);
+  if (!pwMatch) {
+    return res.status(400).render("change-pw", { pageTitle, errorMsg: "기존 비밀번호가 일치하지 않습니다." });
+  }
+
+  if (password !== passwordConfirmation) {
+    return res.status(400).render("change-pw", { pageTitle, errorMsg: "새 비밀번호가 일치하지 않습니다." });
+  }
+
+  if (oldPw === password) {
+    return res.status(400).render("change-pw", { pageTitle, errorMsg: "기존 비밀번호와 새 비밀번호가 동일합니다." });
+  }
+
+  user.password = password;
+  await user.save();
+  // [todo] flash 비밀번호가 변경되었습니다.
+  req.session.destroy();
+  return res.redirect("/login");
+};
 
 export const startGithubLogin = (req, res) => res.send("startGithubLogin");
 export const finishGithubLogin = (req, res) => res.send("finishGithubLogin");

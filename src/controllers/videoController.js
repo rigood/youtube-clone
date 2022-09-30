@@ -1,7 +1,9 @@
 import User from "../models/User";
 import Video from "../models/Video";
 
-export const home = (req, res) => res.render("home");
+export const home = (req, res) => {
+  return res.render("home");
+};
 
 export const search = (req, res) => res.send("search");
 
