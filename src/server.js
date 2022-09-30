@@ -21,9 +21,10 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: "hi",
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })
 );
 app.use(localsMiddleware);
