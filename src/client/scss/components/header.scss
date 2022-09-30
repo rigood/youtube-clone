@@ -1,0 +1,17 @@
+header{
+    display: flex;
+    align-items: center;
+    height: 70px;
+    background-color: pink;
+    a.header-logo{
+        margin-right: 100px;
+    }
+    nav{
+        ul{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+

@@ -1,0 +1,21 @@
+form{
+    display: flex;
+    flex-direction: column;
+    width: min(50%, 500px);
+    .error-msg{
+        color: red;
+    }
+    .pw-confirm-msg{
+        color: red;
+     }
+     .auth-switch{
+         display: flex;
+         justify-content: space-between;
+     }
+}
+
+input{
+    margin-bottom: 20px;
+}
+
+ 

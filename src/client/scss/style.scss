@@ -1,0 +1,21 @@
+// Config
+@import "./config/_variables";
+@import "./config/_reset";
+
+// Components
+@import "./components/header";
+@import "./components/form";
+@import "./components/etc";
+
+// Screens
+
+// Defaults
+
+*{
+    box-sizing: border-box;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}

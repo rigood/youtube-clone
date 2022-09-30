@@ -1,4 +1,7 @@
-export const home = (req, res) => res.send("home");
+import User from "../models/User";
+import Video from "../models/Video";
+
+export const home = (req, res) => res.render("home");
 
 export const search = (req, res) => res.send("search");
 
