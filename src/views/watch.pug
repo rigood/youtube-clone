@@ -3,6 +3,6 @@ extends base
 block content
     video(src="/" + video.fileUrl)
     div 제목 : #{video.title}
-    div 저자 : #{video.author.nickname}
+    a(href=`/users/${video.author._id}`) 저자 : #{video.author.nickname}
     div 설명 : #{video.description}
     div 날짜 : #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}

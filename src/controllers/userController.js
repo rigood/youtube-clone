@@ -268,4 +268,13 @@ export const finishKakaoLogin = async (req, res) => {
   }
 };
 
-export const see = (req, res) => res.send("see");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });
+  }
+
+  return res.render("profile", { pageTitle: user.nickname, user });
+};

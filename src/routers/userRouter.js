@@ -18,6 +18,6 @@ userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
 userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 
-userRouter.get("/:id", see);
+userRouter.get("/:id([0-9a-f]{24})", see);
 
 export default userRouter;

@@ -1,0 +1,15 @@
+extends base
+include mixins/video
+
+block content
+    if(user.avatarUrl.startsWith("http"))
+        img(src=user.avatarUrl, width="100", height="100")
+    else
+        img(src= "/" + user.avatarUrl, width="100", height="100")
+        
+    h1=user.nickname
+
+    each video in user.videos
+        +video(video)
+    else
+        span 동영상이 존재하지 않습니다.
