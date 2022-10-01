@@ -1,6 +1,6 @@
 import express from "express";
 
-import { logout, getEdit, postEdit, getChangePw, postChangePw, startGithubLogin, finishGithubLogin, see } from "../controllers/userController";
+import { logout, getEdit, postEdit, getChangePw, postChangePw, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, see } from "../controllers/userController";
 
 const userRouter = express.Router();
 
@@ -11,6 +11,9 @@ userRouter.route("/change-pw").get(getChangePw).post(postChangePw);
 
 userRouter.get("/github/start", startGithubLogin);
 userRouter.get("/github/finish", finishGithubLogin);
+
+userRouter.get("/kakao/start", startKakaoLogin);
+userRouter.get("/kakao/finish", finishKakaoLogin);
 
 userRouter.get("/:id", see);
 

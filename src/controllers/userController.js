@@ -122,7 +122,7 @@ export const postChangePw = async (req, res) => {
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {
-    client_id: process.env.CLIENT_ID,
+    client_id: process.env.GH_CLIENT_ID,
     allow_signup: false,
     scope: "read:user user:email",
   };
@@ -132,10 +132,11 @@ export const startGithubLogin = (req, res) => {
 };
 
 export const finishGithubLogin = async (req, res) => {
+  const pageTitle = "로그인";
   const baseUrl = "https://github.com/login/oauth/access_token";
   const config = {
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
+    client_id: process.env.GH_CLIENT_ID,
+    client_secret: process.env.GH_CLIENT_SECRET,
     code: req.query.code,
   };
   const params = new URLSearchParams(config).toString();
@@ -160,7 +161,6 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log("🤦‍♀️ User Data : ", userData);
 
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
@@ -169,13 +169,11 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log("💻 Email Data : ", emailData);
 
     const emailObj = emailData.find((email) => email.primary === true && email.verified === true);
 
     if (!emailObj) {
-      // [todo] flash 인증된 깃허브 이메일 주소가 존재하지 않습니다.
-      return res.redirect("/login");
+      return res.render("login", { pageTitle, errorMsg: "인증된 깃허브 이메일이 존재하지 않습니다" });
     }
 
     let user = await User.findOne({ email: emailObj.email });
@@ -192,8 +190,77 @@ export const finishGithubLogin = async (req, res) => {
     // [todo] flash 회원가입이 완료되었습니다.
     return res.redirect("/");
   } else {
-    // [todo] flash 다시 시도해주시기 바랍니다.
-    return res.redirect("/login");
+    return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });
+  }
+};
+
+export const startKakaoLogin = (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    client_id: process.env.KAKAO_CLIENT_ID,
+    redirect_uri: process.env.KAKAO_URI,
+    response_type: "code",
+    scope: "profile_nickname profile_image account_email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  const pageTitle = "로그인";
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KAKAO_CLIENT_ID,
+    redirect_uri: process.env.KAKAO_URI,
+    code: req.query.code,
+    client_secret: process.env.KAKAO_CLIENT_SECRET,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
+  ).json();
+
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://kapi.kakao.com";
+    const userData = await (
+      await fetch(`${apiUrl}/v2/user/me`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+
+    const userObj = userData.kakao_account;
+
+    if (userObj.has_email === false || userObj.is_email_valid === false || userObj.is_email_verified === false) {
+      return res.render("login", { pageTitle, errorMsg: "카카오 계정 이메일이 존재하지 않거나 유효하지 않습니다." });
+    }
+
+    let user = await User.findOne({ email: userObj.email });
+    if (!user) {
+      user = await User.create({
+        email: userObj.email,
+        nickname: userObj.profile.nickname,
+        socialOnly: true,
+        avatarUrl: userObj.profile.thumbnail_image_url,
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    // [todo] flash 회원가입이 완료되었습니다.
+    return res.redirect("/");
+  } else {
+    return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });
   }
 };
 
