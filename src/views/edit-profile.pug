@@ -1,11 +1,26 @@
 extends base
 
 block content
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
+        if(loggedInUser.avatarUrl.startsWith("http"))
+            img(src=loggedInUser.avatarUrl, width="100", height="100")
+        else
+            img(src= "/" + loggedInUser.avatarUrl, width="100", height="100")
+
+
+        label(for="avatar") 프로필 사진
+        input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
+
         label(for="email") 이메일
         input(name="email", id="email",placeholder="이메일", type="email", required, value=loggedInUser.email)
+
         label(for="nickname") 닉네임
         input(name="nickname", id="nickname", placeholder="닉네임" type="text", required, maxLength="15", value=loggedInUser.nickname)
+
         input(type="submit", value="변경하기")
+
         if !loggedInUser.socialOnly
             a(href="change-pw") 비밀번호 변경 &rarr;
+
+block scripts
+    script(src="/static/js/editProfile.js")
