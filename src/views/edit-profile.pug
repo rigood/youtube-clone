@@ -2,6 +2,9 @@ extends base
 
 block content
     form(method="POST", enctype="multipart/form-data")
+        if errorMsg
+            div.error-msg=errorMsg
+
         if(loggedInUser.avatarUrl.startsWith("http"))
             img(src=loggedInUser.avatarUrl, width="100", height="100")
         else

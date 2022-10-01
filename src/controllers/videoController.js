@@ -88,7 +88,9 @@ export const postEdit = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   const {
     params: { id },
-    session: { user: _id },
+    session: {
+      user: { _id },
+    },
   } = req;
 
   const video = await Video.findById(id);
@@ -111,6 +113,7 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  const pageTitle = "동영상 업로드";
   const {
     session: {
       user: { _id },
@@ -118,6 +121,17 @@ export const postUpload = async (req, res) => {
     files: { video, thumb },
     body: { title, description, hashtags },
   } = req;
+
+  const videoSize = video[0].size;
+  const thumbSize = thumb[0].size;
+
+  if (videoSize > 10000000) {
+    return res.status(500).render("upload", { pageTitle, errorMsg: "10MB 이하 동영상 파일만 업로드 할 수 있습니다." });
+  }
+
+  if (thumbSize > 5000000) {
+    return res.status(500).render("upload", { pageTitle, errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+  }
 
   try {
     const newVideo = await Video.create({
@@ -136,7 +150,7 @@ export const postUpload = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(400).render("upload", {
-      pageTitle: "동영상 업로드",
+      pageTitle,
       errorMsg: "동영상 업로드 중 오류가 발생했습니다.",
     });
   }

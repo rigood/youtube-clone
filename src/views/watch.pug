@@ -1,8 +1,12 @@
 extends base
 
 block content
-    video(src="/" + video.fileUrl)
+    video(src="/" + video.fileUrl, controls)
     div 제목 : #{video.title}
     a(href=`/users/${video.author._id}`) 저자 : #{video.author.nickname}
     div 설명 : #{video.description}
     div 날짜 : #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+
+    if String(video.author._id) === String(loggedInUser._id)
+        a(href=`${video._id}/edit`) 수정 &rarr;
+        a(href=`${video._id}/delete`) 삭제 &rarr;

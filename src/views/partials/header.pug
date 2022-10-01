@@ -4,14 +4,16 @@ header
         ul
             if loggedIn
                 li
-                    a(href="/videos/upload") 업로드
+                    a(href="/videos/upload") 업로드/
                 li
-                    a(href="/users/edit") 프로필
+                    a(href="/users/edit") 프로필변경/
                 li
-                    a(href="/users/logout") 로그아웃
+                    a(href=`/users/${loggedInUser._id}`) 프로필보기/
+                li
+                    a(href="/users/logout") 로그아웃/
             else
                 li
-                    a(href="/login") 로그인
+                    a(href="/login") 로그인/
                 li
-                    a(href="/join") 회원가입
+                    a(href="/join") 회원가입/
 

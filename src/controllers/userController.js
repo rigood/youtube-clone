@@ -57,7 +57,7 @@ export const logout = (req, res) => {
 };
 
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "프로필" });
+  return res.render("edit-profile", { pageTitle: "프로필 변경" });
 };
 
 export const postEdit = async (req, res) => {
@@ -69,7 +69,11 @@ export const postEdit = async (req, res) => {
     file,
   } = req;
 
-  console.log(file);
+  const avatarSize = file.size;
+
+  if (avatarSize > 5000000) {
+    return res.status(500).render("edit-profile", { pageTitle: "프로필 변경", errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+  }
 
   const updatedUser = await User.findByIdAndUpdate(
     _id,
