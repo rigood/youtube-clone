@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   nickname: { type: String, maxLength: 15, required: true },
   socialOnly: { type: Boolean, default: false },
   avatarUrl: { type: String },
+  videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
 });
 
 userSchema.pre("save", async function () {

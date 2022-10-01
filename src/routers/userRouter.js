@@ -2,20 +2,21 @@ import express from "express";
 
 import { logout, getEdit, postEdit, getChangePw, postChangePw, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, see } from "../controllers/userController";
 
-import { uploadFiles } from "../middlewares";
+import { protectorMiddleware, publicOnlyMiddleware, avatarUpload } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.get("/logout", logout);
+userRouter.get("/logout", protectorMiddleware, logout);
 
-userRouter.route("/edit").get(getEdit).post(uploadFiles.single("avatar"), postEdit);
-userRouter.route("/change-pw").get(getChangePw).post(postChangePw);
+userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(avatarUpload.single("avatar"), postEdit);
 
-userRouter.get("/github/start", startGithubLogin);
-userRouter.get("/github/finish", finishGithubLogin);
+userRouter.route("/change-pw").all(protectorMiddleware).get(getChangePw).post(postChangePw);
 
-userRouter.get("/kakao/start", startKakaoLogin);
-userRouter.get("/kakao/finish", finishKakaoLogin);
+userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
+userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
+
+userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
+userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 
 userRouter.get("/:id", see);
 

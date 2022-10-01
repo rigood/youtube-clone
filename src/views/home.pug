@@ -1,4 +1,11 @@
 extends base
+include mixins/video
 
 block content
-    
+    form(action="/search")
+        input(type="text", name="keyword", id="search", placeholder="검색어를 입력하세요", required, minLength="1")
+        input(type="submit", value="검색")
+    each video in videos
+        +video(video)
+    else
+        span 업로드된 동영상이 없습니다.
