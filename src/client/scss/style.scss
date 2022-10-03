@@ -1,20 +1,20 @@
 // Config
 @import "./config/_variables";
-@import "./config/_reset.scss";
+@import "./config/_reset";
 
 // Components
 @import "./components/header";
 @import "./components/form";
 @import "./components/etc";
-@import "./components/videoPlayer.scss";
+@import "./components/videoPlayer";
 
 // Screens
-
+@import "./screens/watch";
 
 // Defaults
 
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 a {

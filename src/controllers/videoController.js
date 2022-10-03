@@ -10,10 +10,11 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("author").populate("comments");
+  const asideVideos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
   if (!video) {
     return res.render("404", { pageTitle: "해당 동영상이 존재하지 않습니다." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", { pageTitle: video.title, video, asideVideos });
 };
 
 export const search = async (req, res) => {
