@@ -29,5 +29,21 @@ block content
         a(href=`${video._id}/edit`) 수정 &rarr;
         a(href=`${video._id}/delete`) 삭제 &rarr;
 
+    if loggedIn
+        div
+            form#commentForm
+                textarea#textarea(placeholder="댓글을 남겨주세요.")
+                button 등록
+
+    div.video__comments
+        ul
+            each comment in video.comments.reverse()
+                li(data-id=comment._id)
+                    i.fas.fa-comment
+                    span #{comment.text}
+                    span ❌
+
 block scripts
     script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")

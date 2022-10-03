@@ -11,6 +11,7 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
+const textarea = document.getElementById("textarea");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -113,16 +114,16 @@ const handleMouseLeave = () => {
 
 const handleKeyboard = (event) => {
   // spacebar -> pause
-  if (event.keyCode === 32) {
+  if (event.target !== textarea && event.keyCode === 32) {
     handlePlayAndStop();
   }
   // f, F -> enter fullscreen
-  if (event.keyCode === 102 || event.keyCode === 70) {
+  if (event.target !== textarea && (event.keyCode === 102 || event.keyCode === 70)) {
     video.requestFullscreen();
     fullScreenBtn.innerText = "Exit Full Screen";
   }
   // Esc -> exit fullscreen
-  if (event.keyCode === 27) {
+  if (event.target !== textarea && event.keyCode === 27) {
     document.exitFullscreen();
     fullScreenBtn.innerText = "Enter Full Screen";
   }

@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
@@ -8,7 +9,7 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("author");
+  const video = await Video.findById(id).populate("author").populate("comments");
   if (!video) {
     return res.render("404", { pageTitle: "해당 동영상이 존재하지 않습니다." });
   }
@@ -94,6 +95,9 @@ export const deleteVideo = async (req, res) => {
   } = req;
 
   const video = await Video.findById(id);
+  const comments = video.comments;
+  const user = await User.findById(_id);
+
   if (!video) {
     return res.render("404", { pageTitle: "해당 동영상이 존재하지 않습니다." });
   }
@@ -103,7 +107,21 @@ export const deleteVideo = async (req, res) => {
     return res.status(403).redirect("/");
   }
 
+  // 비디오 삭제
   await Video.findByIdAndDelete(id);
+
+  // 코멘트 삭제
+  await Comment.deleteMany({
+    _id: { $in: comments },
+  });
+
+  // user 안에 있는 비디오, 코멘트 삭제
+  user.videos.splice(user.videos.indexOf(id), 1);
+  comments.map((comment) => {
+    user.comments.splice(user.comments.indexOf(comment), 1);
+  });
+  user.save();
+
   // [todo] flash 동영상이 삭제되었습니다.
   return res.redirect("/");
 };
@@ -167,4 +185,35 @@ export const registerView = async (req, res) => {
   video.meta.views += 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { text },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+  const user = await User.findById(_id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const comment = await Comment.create({
+    text,
+    author: _id,
+    video: id,
+  });
+
+  video.comments.push(comment._id);
+  await video.save();
+
+  user.comments.push(comment._id);
+  await user.save();
+
+  return res.status(201).json({ newCommentId: comment._id });
 };

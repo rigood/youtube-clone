@@ -10,6 +10,7 @@ module.exports = {
     editProfile: BASE_JS + "editProfile.js",
     videoPlayer: BASE_JS + "videoPlayer.js",
     recorder: BASE_JS + "recorder.js",
+    commentSection: BASE_JS + "commentSection.js",
   },
   mode: "development",
   watch: true,
