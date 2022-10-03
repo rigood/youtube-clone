@@ -4,6 +4,7 @@ import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
+
   return res.render("home", { pageTitle: "홈", videos });
 };
 
@@ -35,6 +36,26 @@ export const search = async (req, res) => {
   }
 
   return res.render("search", { pageTitle: "검색 결과", videos, keyword });
+};
+
+export const hashtag = async (req, res) => {
+  const { hashtag } = req.params;
+
+  let videos = [];
+
+  if (!hashtag) {
+    return res.redirect("/");
+  }
+
+  if (hashtag) {
+    videos = await Video.find({
+      hashtags: {
+        $regex: new RegExp(hashtag, "i"),
+      },
+    }).populate("author");
+  }
+
+  return res.render("home", { pageTitle: "홈", videos });
 };
 
 export const getEdit = async (req, res) => {
