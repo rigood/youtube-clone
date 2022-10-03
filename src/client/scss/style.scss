@@ -17,9 +17,20 @@
   box-sizing: border-box;
 }
 
+body {
+  margin-top: 60px;
+  font-family: Roboto, sans-serif;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 @keyframes goAway {
@@ -44,7 +55,7 @@ a {
   border-radius: 10000px;
   text-align: center;
   animation: goAway 0.5s ease-in-out forwards;
-  animation-delay: 5s;
+  animation-delay: 3s;
   &.error {
     background-color: tomato;
     color: white;
