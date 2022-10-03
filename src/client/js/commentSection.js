@@ -1,5 +1,6 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const deleteBtn = document.querySelector(".deleteBtn");
 
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
@@ -44,6 +45,27 @@ const handleSubmit = async (event) => {
   }
 };
 
+const handleDelete = async (event) => {
+  event.preventDefault();
+
+  const videoId = videoContainer.dataset.id;
+  const commentId = event.target.parentElement.dataset.id;
+
+  console.log(`✅비디오id : ${videoId}, 코멘트id:  ${commentId}`);
+
+  const response = await fetch(`/api/videos/${videoId}/comments/${commentId}`, {
+    method: "DELETE",
+  });
+
+  if (response.status === 200) {
+    event.target.parentElement.remove();
+  }
+};
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
+}
+
+if (deleteBtn) {
+  deleteBtn.addEventListener("click", handleDelete);
 }

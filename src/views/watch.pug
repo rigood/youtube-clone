@@ -41,7 +41,8 @@ block content
                 li(data-id=comment._id)
                     i.fas.fa-comment
                     span #{comment.text}
-                    span ❌
+                    if String(comment.author._id) === String(loggedInUser._id)
+                        span.deleteBtn ❌
 
 block scripts
     script(src="/static/js/videoPlayer.js")

@@ -217,3 +217,48 @@ export const createComment = async (req, res) => {
 
   return res.status(201).json({ newCommentId: comment._id });
 };
+
+export const deleteComment = async (req, res) => {
+  const {
+    params: { videoId, commentId },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  const comment = await Comment.findById(commentId);
+  const user = await User.findById(_id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  if (String(comment.author) !== String(_id)) {
+    // [todo] flash 댓글 삭제 권한이 없습니다.
+    return res.status(403).redirect("/");
+  }
+
+  console.log(`💚 비디오 ${videoId}, 코멘트 ${commentId}, 유저 ${_id}`);
+
+  // 코멘트 삭제
+  await Comment.findByIdAndDelete(commentId);
+
+  // 비디오 모델에서 코멘트 삭제
+  video.comments.splice(video.comments.indexOf(commentId), 1);
+  await video.save();
+
+  // 유저 모델에서 코멘트 삭제
+  user.comments.splice(user.comments.indexOf(commentId), 1);
+  await user.save();
+
+  return res.sendStatus(200);
+};
