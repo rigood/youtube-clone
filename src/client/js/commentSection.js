@@ -1,6 +1,7 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-const deleteBtn = document.querySelector(".deleteBtn");
+const deleteBtn = document.querySelectorAll(".deleteBtn");
+const commentsCount = document.getElementById("commentsCount");
 
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
@@ -13,10 +14,13 @@ const addComment = (text, id) => {
   span.innerText = ` ${text}`;
   const span2 = document.createElement("span");
   span2.innerText = "❌";
+  span2.addEventListener("click", handleDelete);
   newComment.appendChild(icon);
   newComment.appendChild(span);
   newComment.appendChild(span2);
   videoComments.prepend(newComment);
+  const countValue = Number(commentsCount.innerText) + 1;
+  commentsCount.innerText = countValue;
 };
 
 const handleSubmit = async (event) => {
@@ -45,6 +49,8 @@ const handleSubmit = async (event) => {
   }
 };
 
+const removeComment = (id) => {};
+
 const handleDelete = async (event) => {
   event.preventDefault();
 
@@ -59,6 +65,8 @@ const handleDelete = async (event) => {
 
   if (response.status === 200) {
     event.target.parentElement.remove();
+    const countValue = Number(commentsCount.innerText) - 1;
+    commentsCount.innerText = countValue;
   }
 };
 
@@ -67,5 +75,5 @@ if (form) {
 }
 
 if (deleteBtn) {
-  deleteBtn.addEventListener("click", handleDelete);
+  deleteBtn.forEach((btn) => btn.addEventListener("click", handleDelete));
 }

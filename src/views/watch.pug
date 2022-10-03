@@ -36,6 +36,9 @@ block content
                 button 등록
 
     div.video__comments
+        span 댓글 
+        span#commentsCount #{video.comments.length}
+        span 개
         ul
             each comment in video.comments.reverse()
                 li(data-id=comment._id)
