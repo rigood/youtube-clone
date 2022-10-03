@@ -22,6 +22,7 @@ export const postJoin = async (req, res) => {
       email,
       password,
       nickname,
+      avatarUrl: "uploads/avatars/default.jpg",
     });
     return res.redirect("/login");
   } catch (error) {
