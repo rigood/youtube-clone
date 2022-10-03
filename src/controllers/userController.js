@@ -86,13 +86,13 @@ export const postEdit = async (req, res) => {
   );
 
   req.session.user = updatedUser;
-  // [todo] flash 변경되었습니다.
+  req.flash("success", "비밀번호가 변경되었습니다.");
   return res.redirect("/users/edit");
 };
 
 export const getChangePw = (req, res) => {
   if (req.session.user.socialOnly === true) {
-    // [todo] flash 비밀번호 변경 대상이 아닙니다.
+    req.flash("error", "비밀번호 변경 대상이 아닙니다.");
     return res.redirect("/");
   }
   return res.render("change-pw", { pageTitle: "비밀번호 변경" });
@@ -122,7 +122,7 @@ export const postChangePw = async (req, res) => {
 
   user.password = password;
   await user.save();
-  // [todo] flash 비밀번호가 변경되었습니다.
+  req.flash("success", "비밀번호가 변경되었습니다.");
   req.session.destroy();
   return res.redirect("/login");
 };
@@ -195,7 +195,7 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
-    // [todo] flash 회원가입이 완료되었습니다.
+    req.flash("success", "회원가입이 완료되었습니다.");
     return res.redirect("/");
   } else {
     return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });
@@ -265,7 +265,7 @@ export const finishKakaoLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
-    // [todo] flash 회원가입이 완료되었습니다.
+    req.flash("success", "회원가입이 완료되었습니다.");
     return res.redirect("/");
   } else {
     return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });

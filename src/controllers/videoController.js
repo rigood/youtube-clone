@@ -23,7 +23,7 @@ export const search = async (req, res) => {
   let videos = [];
 
   if (!keyword) {
-    // [todo] flash 검색어를 입력해주세요.
+    req.flash("error", "검색어를 입력해주세요.");
     return res.redirect("/");
   }
 
@@ -72,7 +72,7 @@ export const getEdit = async (req, res) => {
   }
 
   if (String(video.author) !== String(_id)) {
-    // [todo] flash 동영상 수정 권한이 없습니다.
+    req.flash("error", "동영상 수정 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
 
@@ -94,7 +94,7 @@ export const postEdit = async (req, res) => {
   }
 
   if (String(video.author) !== String(_id)) {
-    // [todo] flash 동영상 수정 권한이 없습니다.
+    req.flash("error", "동영상 수정 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
 
@@ -104,7 +104,7 @@ export const postEdit = async (req, res) => {
     hashtags: Video.formatHashtags(hashtags),
   });
 
-  // [todo] flash 동영상이 수정되었습니다.
+  req.flash("success", "동영상이 수정되었습니다.");
   return res.redirect(`/videos/${id}`);
 };
 
@@ -125,7 +125,7 @@ export const deleteVideo = async (req, res) => {
   }
 
   if (String(video.author) !== String(_id)) {
-    // [todo] flash 동영상 삭제 권한이 없습니다.
+    req.flash("error", "동영상 삭제 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
 
@@ -144,7 +144,7 @@ export const deleteVideo = async (req, res) => {
   });
   user.save();
 
-  // [todo] flash 동영상이 삭제되었습니다.
+  req.flash("success", "동영상이 삭제되었습니다.");
   return res.redirect("/");
 };
 
@@ -185,7 +185,7 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
-    // [todo] flash 동영상이 업로드 되었습니다.
+    req.flash("success", "동영상이 업로드 되었습니다.");
     return res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -265,7 +265,7 @@ export const deleteComment = async (req, res) => {
   }
 
   if (String(comment.author) !== String(_id)) {
-    // [todo] flash 댓글 삭제 권한이 없습니다.
+    req.flash("error", "댓글 삭제 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
 
