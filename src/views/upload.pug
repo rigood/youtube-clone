@@ -1,6 +1,9 @@
 extends base
 
 block content
+    div
+        video#preview
+        button#actionBtn 녹화하기
     form(method="POST", enctype="multipart/form-data")
         if errorMsg
         div.error-msg=errorMsg
@@ -21,3 +24,6 @@ block content
         input(name="hashtags", id="hashtags", placeholder="해쉬태그를 콤마(,)로 구분해서 입력해주세요." type="text", required, minLength="2")
 
         input(type="submit", value="동영상 업로드")
+
+block scripts
+    script(src="/static/js/recorder.js")

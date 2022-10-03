@@ -1,0 +1,60 @@
+#videoContainer {
+  position: relative;
+  width: fit-content;
+}
+
+#videoContainerOverlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+}
+
+video {
+  width: 100%;
+}
+
+#videoControls {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: 95%;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  #timeline-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    #timeline {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+  #controller-row {
+    display: flex;
+    justify-content: space-between;
+    #playPauseBtn {
+      margin-inline: 10px;
+    }
+    #currentTime,
+    #totalTime {
+      font-weight: bold;
+    }
+  }
+}
+
+.showing {
+  opacity: 1 !important;
+}

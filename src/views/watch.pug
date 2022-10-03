@@ -1,7 +1,25 @@
 extends base
 
 block content
-    video(src="/" + video.fileUrl, controls)
+    div#videoContainer(data-id=video._id)
+        div#videoContainerOverlay
+        video(src="/" + video.fileUrl, autoplay)
+        div#videoControls.showing
+            div#timeline-row
+                input(type="range", step="1", value="0", min="0")#timeline
+            div#controller-row
+                div
+                    span#playPauseBtn
+                        i.fas.fa-pause
+                    span#currentTime 00:00:00 
+                    span / 
+                    span#totalTime 00:00:00
+                div
+                    span#volume
+                        i.fas.fa-volume-up
+                    input(type="range", step="0.1", value="0.5", min="0" max="1")#volumeRange
+                    button#fullScreen Enter Full Screen
+
     div 제목 : #{video.title}
     a(href=`/users/${video.author._id}`) 저자 : #{video.author.nickname}
     div 설명 : #{video.description}
@@ -10,3 +28,6 @@ block content
     if String(video.author._id) === String(loggedInUser._id)
         a(href=`${video._id}/edit`) 수정 &rarr;
         a(href=`${video._id}/delete`) 삭제 &rarr;
+
+block scripts
+    script(src="/static/js/videoPlayer.js")

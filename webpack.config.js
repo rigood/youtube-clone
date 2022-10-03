@@ -7,7 +7,9 @@ module.exports = {
   entry: {
     main: BASE_JS + "main.js",
     join: BASE_JS + "join.js",
-    editProfile: BASE_JS + "edit-profile.js",
+    editProfile: BASE_JS + "editProfile.js",
+    videoPlayer: BASE_JS + "videoPlayer.js",
+    recorder: BASE_JS + "recorder.js",
   },
   mode: "development",
   watch: true,
