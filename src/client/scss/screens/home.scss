@@ -1,5 +1,23 @@
-.container {
+#container {
   display: grid;
   grid-template-columns: 240px auto;
   gap: 20px;
+}
+
+main {
+  nav#filter {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      margin: 0 12px;
+      padding: 6px 12px;
+      border-radius: 16px;
+      border: 1px solid $border;
+      &:hover {
+        background-color: $nav-hover;
+      }
+    }
+  }
 }

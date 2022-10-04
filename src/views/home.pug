@@ -2,16 +2,19 @@ extends base
 include mixins/video
 
 block content
-    div.container
+    div#container
         nav
             include partials/nav
         main
-            div
-                a(href="/") 모두
-                a(href="/hashtag=뉴진스") 뉴진스
-                a(href="/hashtag=아이들") 아이들
-                a(href="/hashtag=엔믹스") 엔믹스
-            each video in videos
-                +video(video)
-            else
-                span 업로드된 동영상이 없습니다.
+            nav#filter
+                a(href="/") 전체
+                a(href="/hashtag=뉴진스") 뉴진스 (NewJeans)
+                a(href="/hashtag=아이브") 아이브 (IVE)
+                a(href="/hashtag=블랙핑크") 블랙핑크 (BLACKPINK)
+                a(href="/hashtag=아이들") (여자)아이들 ((G)I-DLE)
+                a(href="/hashtag=아이브") ITZY (있지)
+            section
+                each video in videos
+                    +video(video)
+                else
+                    span 업로드된 동영상이 없습니다.
