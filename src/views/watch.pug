@@ -24,33 +24,63 @@ block content
                         div#controller-right
                             span#fullScreenBtn.c-btn
                                 i.fas.fa-expand
+            div.belowContainer
+                div.watch__info
+                    div.watch__hashtags
+                        each hashtag in video.hashtags
+                            span.watch__hashtag #{hashtag}
+                    div.watch__title #{video.title}
+                    div.watch__author-btns
+                        a(href=`/users/${video.author._id}`).watch__author
+                            div.watch__author-avatar
+                                if(video.author.avatarUrl.startsWith("http"))
+                                    img(src=video.author.avatarUrl).watch__avatar-img
+                                else
+                                    img(src="/"+video.author.avatarUrl).watch__avatar-img
+                            div.watch__author-name #{video.author.nickname}
+                        div.watch__btns
+                            if String(video.author._id) === String(loggedInUser._id)
+                                a(href=`${video._id}/edit`) 수정
+                                a(href=`${video._id}/delete`) 삭제
+                    div.watch__meta       
+                        span.watch__views 조회수 #{video.meta.views}회
+                        span.watch__date #{new Date(video.createdAt).toLocaleDateString()}
+                    div.watch__description #{video.description}
+                div.watch__comments
+                    div.comment-count
+                        span 댓글 
+                        span#commentsCount #{video.comments.length}
+                        span 개
+                    if loggedIn
+                        div.comment-box
+                            div.comment-avatar
+                                if(loggedInUser.avatarUrl.startsWith("http"))
+                                    img(src=loggedInUser.avatarUrl).comment-avatar-img
+                                else
+                                    img(src="/"+loggedInUser.avatarUrl).comment-avatar-img
+                            form#commentForm.comment-contents
+                                input#commentInput.comment-input(placeholder="댓글 추가...")
+                                div.comment-btns
+                                    button(type="button") 취소
+                                    button(type="submit") 댓글
+                    ul#commentList
+                        each comment in video.comments.reverse()
+                            li(data-id=comment._id).comment-box
+                                div.comment-avatar
+                                    if(comment.author.avatarUrl.startsWith("http"))
+                                        img(src=comment.author.avatarUrl).comment-avatar-img
+                                    else
+                                        img(src="/"+comment.author.avatarUrl).comment-avatar-img
+                                div.comment-contents
+                                    div.comment-meta
+                                        span.comment-author #{comment.author.nickname}
+                                        span.comment-date #{comment.createdAt.toLocaleDateString()}
+                                    div.comment-input.comment-input-btn
+                                        p.comment-text #{comment.text}
+                                        if String(comment.author._id) === String(loggedInUser._id)
+                                            button.comment-delBtn
+                                                i.fas.fa-trash-can
 
-            div 제목 : #{video.title}
-            a(href=`/users/${video.author._id}`) 저자 : #{video.author.nickname}
-            div 설명 : #{video.description}
-            div 날짜 : #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
-
-            if String(video.author._id) === String(loggedInUser._id)
-                a(href=`${video._id}/edit`) 수정 &rarr;
-                a(href=`${video._id}/delete`) 삭제 &rarr;
-
-            if loggedIn
-                div
-                    form#commentForm
-                        textarea#textarea(placeholder="댓글을 남겨주세요.")
-                        button 등록
-
-            div.video__comments
-                span 댓글 
-                span#commentsCount #{video.comments.length}
-                span 개
-                ul
-                    each comment in video.comments.reverse()
-                        li(data-id=comment._id)
-                            i.fas.fa-comment
-                            span #{comment.text}
-                            if String(comment.author._id) === String(loggedInUser._id)
-                                span.deleteBtn ❌
         nav.watch__right
             each video in asideVideos
                 +video(video)

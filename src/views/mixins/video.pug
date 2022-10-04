@@ -3,10 +3,10 @@ mixin video(video)
         img.video-mixin__thumb(src="/"+video.thumbUrl)
         div.video-mixin__info
             div.video-mixin__img
-                if (loggedInUser.avatarUrl.startsWith("http"))
-                    img(src=loggedInUser.avatarUrl).video-mixin__avatar
-                else
-                    img(src= "/" + loggedInUser.avatarUrl).video-mixin__avatar
+                if (video.author.avatarUrl.startsWith("http"))
+                    img(src=video.author.avatarUrl).video-mixin__avatar
+                else if (video.author.avatarUrl.startsWith("uploads"))
+                    img(src= "/" + video.author.avatarUrl).video-mixin__avatar
             div.video-mixin__details
                 h1.video-mixin__title #{video.title}
                 div.video-mixin__meta

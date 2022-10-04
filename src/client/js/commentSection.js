@@ -1,24 +1,67 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-const deleteBtn = document.querySelectorAll(".deleteBtn");
+const deleteBtn = document.querySelectorAll(".comment-delBtn");
 const commentsCount = document.getElementById("commentsCount");
 
-const addComment = (text, id) => {
-  const videoComments = document.querySelector(".video__comments ul");
+const addComment = (text, id, avatarUrl, nickname, createdAt) => {
+  const commentList = document.getElementById("commentList");
+
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
-  newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
-  const span = document.createElement("span");
-  span.innerText = ` ${text}`;
-  const span2 = document.createElement("span");
-  span2.innerText = "❌";
-  span2.addEventListener("click", handleDelete);
-  newComment.appendChild(icon);
-  newComment.appendChild(span);
-  newComment.appendChild(span2);
-  videoComments.prepend(newComment);
+  newComment.className = "comment-box";
+
+  const commentAvatar = document.createElement("div");
+  commentAvatar.className = "comment-avatar";
+
+  const commentAvatarImg = document.createElement("img");
+  commentAvatarImg.className = "comment-avatar-img";
+  commentAvatarImg.src = avatarUrl.startsWith("http") ? avatarUrl : "/" + avatarUrl;
+
+  commentAvatar.appendChild(commentAvatarImg);
+
+  const commentContents = document.createElement("div");
+  commentContents.className = "comment-contents";
+
+  const commentMeta = document.createElement("div");
+  commentMeta.className = "comment-meta";
+
+  const commentAuthor = document.createElement("span");
+  commentAuthor.className = "comment-author";
+  commentAuthor.innerText = nickname;
+
+  const commentDate = document.createElement("span");
+  commentDate.className = "comment-date";
+  commentDate.innerText = createdAt;
+
+  commentMeta.appendChild(commentAuthor);
+  commentMeta.appendChild(commentDate);
+
+  const commentInput = document.createElement("div");
+  commentInput.classList.add("comment-input", "comment-input-btn");
+
+  const commentText = document.createElement("p");
+  commentText.innerText = text;
+
+  const commentDelBtn = document.createElement("button");
+  commentDelBtn.className = "comment-delBtn";
+  commentDelBtn.addEventListener("click", handleDelete);
+
+  const i = document.createElement("i");
+  i.classList.add("fas", "fa-trash-can");
+
+  commentDelBtn.appendChild(i);
+
+  commentInput.appendChild(commentText);
+  commentInput.appendChild(commentDelBtn);
+
+  commentContents.appendChild(commentMeta);
+  commentContents.appendChild(commentInput);
+
+  newComment.appendChild(commentAvatar);
+  newComment.appendChild(commentContents);
+
+  commentList.prepend(newComment);
+
   const countValue = Number(commentsCount.innerText) + 1;
   commentsCount.innerText = countValue;
 };
@@ -26,8 +69,8 @@ const addComment = (text, id) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  const textarea = form.querySelector("textarea");
-  const text = textarea.value;
+  const commentInput = document.getElementById("commentInput");
+  const text = commentInput.value;
   const videoId = videoContainer.dataset.id;
 
   if (text === "") {
@@ -43,9 +86,9 @@ const handleSubmit = async (event) => {
   });
 
   if (response.status === 201) {
-    textarea.value = "";
-    const { newCommentId } = await response.json();
-    addComment(text, newCommentId);
+    commentInput.value = "";
+    const { newCommentId, avatarUrl, nickname, createdAt } = await response.json();
+    addComment(text, newCommentId, avatarUrl, nickname, createdAt);
   }
 };
 
@@ -55,16 +98,16 @@ const handleDelete = async (event) => {
   event.preventDefault();
 
   const videoId = videoContainer.dataset.id;
-  const commentId = event.target.parentElement.dataset.id;
 
-  console.log(`✅비디오id : ${videoId}, 코멘트id:  ${commentId}`);
+  const commentTarget = event.target.parentElement.parentElement.parentElement.parentElement;
+  const commentId = commentTarget.dataset.id;
 
   const response = await fetch(`/api/videos/${videoId}/comments/${commentId}`, {
     method: "DELETE",
   });
 
   if (response.status === 200) {
-    event.target.parentElement.remove();
+    commentTarget.remove();
     const countValue = Number(commentsCount.innerText) - 1;
     commentsCount.innerText = countValue;
   }

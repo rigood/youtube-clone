@@ -30,16 +30,20 @@ const handleOverlay = () => {
 };
 
 const handleKeyboard = (event) => {
-  // spacebar -> pause
-  if (event.target !== textarea && event.keyCode === 32) {
+  if (event.target === textarea) {
+    return;
+  }
+  // spacebar -> play/pause
+  if (event.keyCode === 32) {
+    event.preventDefault();
     handlePlayAndStop();
   }
   // f, F -> enter fullscreen
-  if (event.target !== textarea && (event.keyCode === 102 || event.keyCode === 70)) {
+  if (event.keyCode === 102 || event.keyCode === 70) {
     videoContainer.requestFullscreen();
   }
   // Esc -> exit fullscreen
-  if (event.target !== textarea && event.keyCode === 27) {
+  if (event.keyCode === 27) {
     document.exitFullscreen();
   }
 };

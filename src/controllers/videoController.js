@@ -4,13 +4,19 @@ import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
-
   return res.render("home", { pageTitle: "홈", videos });
 };
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("author").populate("comments");
+  const video = await Video.findById(id)
+    .populate("author")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "author",
+      },
+    });
   const asideVideos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
   if (!video) {
     return res.render("404", { pageTitle: "해당 동영상이 존재하지 않습니다." });
@@ -237,7 +243,12 @@ export const createComment = async (req, res) => {
   user.comments.push(comment._id);
   await user.save();
 
-  return res.status(201).json({ newCommentId: comment._id });
+  return res.status(201).json({
+    newCommentId: comment._id,
+    avatarUrl: user.avatarUrl,
+    nickname: user.nickname,
+    createdAt: new Date().toLocaleDateString(),
+  });
 };
 
 export const deleteComment = async (req, res) => {
