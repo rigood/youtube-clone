@@ -165,8 +165,8 @@ export const postUpload = async (req, res) => {
   const videoSize = video[0].size;
   const thumbSize = thumb[0].size;
 
-  if (videoSize > 10000000) {
-    return res.status(500).render("upload", { pageTitle, errorMsg: "10MB 이하 동영상 파일만 업로드 할 수 있습니다." });
+  if (videoSize > 30000000) {
+    return res.status(500).render("upload", { pageTitle, errorMsg: "30MB 이하 동영상 파일만 업로드 할 수 있습니다." });
   }
 
   if (thumbSize > 5000000) {

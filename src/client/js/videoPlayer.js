@@ -81,23 +81,23 @@ const handleVolumeRange = (event) => {
     volumeIcon.className = "fas fa-volume-mute";
   }
   if (value === "0") {
-    volumeIcon.className = "fas fa-volume-off";
+    volumeIcon.className = "fas fa-volume-mute";
+    video.muted = true;
   } else {
     volumeIcon.className = "fas fa-volume-up";
   }
   video.volume = volumeValue = value;
 };
 
-const handleVolumeBtn = () => {
+const handleMuteBtn = () => {
   if (video.muted) {
     video.muted = false;
-    volumeRange.value = volumeValue;
-    volumeIcon.className = "fas fa-volume-up";
   } else {
     video.muted = true;
-    volumeRange.value = 0;
-    volumeIcon.className = "fas fa-volume-mute";
   }
+  volumeIcon.className = video.muted ? "fas fa-volume-mute" : "fas fa-volume-up";
+  volumeRange.value = video.muted ? 0 : Number(volumeValue) === 0 ? 0.5 : volumeValue;
+  video.volume = volumeRange.value;
 };
 
 const handlePlayAndStop = () => {
@@ -159,7 +159,7 @@ video.addEventListener("click", handleVideoClick);
 // Set timeline and buttons
 timeline.addEventListener("input", handleTimelineChange);
 psBtn.addEventListener("click", handlePlayAndStop);
-volumeBtn.addEventListener("click", handleVolumeBtn);
+volumeBtn.addEventListener("click", handleMuteBtn);
 volumeRange.addEventListener("input", handleVolumeRange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 
