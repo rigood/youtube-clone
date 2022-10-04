@@ -2,13 +2,16 @@ extends base
 include mixins/video
 
 block content
-    div
-        a(href="/") 모두
-        a(href="/hashtag=뉴진스") 뉴진스
-        a(href="/hashtag=아이들") 아이들
-        a(href="/hashtag=엔믹스") 엔믹스
-
-    each video in videos
-        +video(video)
-    else
-        span 업로드된 동영상이 없습니다.
+    div.container
+        nav
+            include partials/nav
+        main
+            div
+                a(href="/") 모두
+                a(href="/hashtag=뉴진스") 뉴진스
+                a(href="/hashtag=아이들") 아이들
+                a(href="/hashtag=엔믹스") 엔믹스
+            each video in videos
+                +video(video)
+            else
+                span 업로드된 동영상이 없습니다.

@@ -4,11 +4,13 @@
 
 // Components
 @import "./components/header";
+@import "./components/nav";
 @import "./components/form";
 @import "./components/etc";
 @import "./components/videoPlayer";
 
 // Screens
+@import "./screens/home";
 @import "./screens/watch";
 
 // Defaults

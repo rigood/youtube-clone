@@ -1,0 +1,35 @@
+ul {
+  width: 100%;
+  padding-top: 12px;
+  li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 0 24px;
+    &:hover {
+      background-color: $nav-hover;
+      cursor: pointer;
+    }
+    i {
+      margin-right: 24px;
+      font-size: 18px;
+    }
+    span {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+  hr {
+    border-top: 1px solid $border;
+    opacity: 0.3;
+  }
+  p {
+    padding: 12px 24px;
+    font-size: 12px;
+    line-height: 1.2;
+    a {
+      color: $blue;
+    }
+  }
+}
