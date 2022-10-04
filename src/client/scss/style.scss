@@ -6,6 +6,7 @@
 @import "./components/header";
 @import "./components/nav";
 @import "./components/video";
+@import "./components/asideVideo";
 @import "./components/form";
 @import "./components/etc";
 @import "./components/videoPlayer";
@@ -37,6 +38,16 @@ button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+input {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
 
 @keyframes goAway {

@@ -1,5 +1,6 @@
-#watchContainer {
+.watch__container {
   display: grid;
-  grid-template-columns: 70% 30%;
-  gap: 20px;
+  grid-template-columns: auto 400px;
+  gap: 24px;
+  padding: 18px 72px;
 }

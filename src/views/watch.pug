@@ -1,9 +1,9 @@
 extends base
-include mixins/video
+include mixins/aside-video
 
 block content
-    div#watchContainer
-        div#left
+    div.watch__container
+        section.watch__left
             div#videoContainer(data-id=video._id)
                 div#videoContainerOverlay
                 video(src="/" + video.fileUrl, autoplay)
@@ -11,17 +11,19 @@ block content
                     div#timeline-row
                         input(type="range", step="1", value="0", min="0")#timeline
                     div#controller-row
-                        div
-                            span#playPauseBtn
+                        div#controller-left
+                            span#playPauseBtn.c-btn
                                 i.fas.fa-pause
-                            span#currentTime 00:00:00 
-                            span / 
-                            span#totalTime 00:00:00
-                        div
-                            span#volume
+                            span#timeText
+                                span#currentTime 00:00 
+                                span / 
+                                span#totalTime 00:00
+                            span#volumeBtn.c-btn
                                 i.fas.fa-volume-up
-                            input(type="range", step="0.1", value="0.5", min="0" max="1")#volumeRange
-                            button#fullScreen Enter Full Screen
+                            input#volumeRange(type="range", step="0.1", value="0.5", min="0" max="1")
+                        div#controller-right
+                            span#fullScreenBtn.c-btn
+                                i.fas.fa-expand
 
             div 제목 : #{video.title}
             a(href=`/users/${video.author._id}`) 저자 : #{video.author.nickname}
@@ -49,7 +51,7 @@ block content
                             span #{comment.text}
                             if String(comment.author._id) === String(loggedInUser._id)
                                 span.deleteBtn ❌
-        div#right
+        nav.watch__right
             each video in asideVideos
                 +video(video)
 

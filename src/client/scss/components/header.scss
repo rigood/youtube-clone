@@ -9,13 +9,14 @@ header {
   height: 60px;
   padding: 0 16px;
   background-color: white;
+  z-index: 9999;
   .header__icon {
     font-size: 20px;
     color: $icon;
   }
 }
 
-.left {
+.header__left {
   display: flex;
   align-items: center;
   #header__menu {
@@ -28,7 +29,7 @@ header {
   }
 }
 
-.center {
+.header__center {
   flex: 1;
   max-width: 640px;
   #header__search-form {
@@ -56,7 +57,7 @@ header {
   }
 }
 
-.right {
+.header__right {
   display: flex;
   align-items: center;
   i {

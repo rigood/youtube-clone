@@ -1,56 +1,79 @@
 #videoContainer {
   position: relative;
-  width: fit-content;
-}
-
-#videoContainerOverlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 1);
-}
-
-video {
   width: 100%;
-}
-
-#videoControls {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  bottom: 5%;
-  left: 0;
-  right: 0;
-  margin-inline: auto;
-  width: 95%;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px;
-  z-index: 9999;
-  opacity: 0;
-  transition: all 0.5s ease-in-out;
-  cursor: pointer;
-  #timeline-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    #timeline {
-      width: 100%;
-      cursor: pointer;
-    }
+  #videoContainerOverlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: black;
   }
-  #controller-row {
+  video {
+    width: 100%;
+  }
+  #videoControls {
     display: flex;
-    justify-content: space-between;
-    #playPauseBtn {
-      margin-inline: 10px;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 100%;
+    padding: 0 10px;
+    padding-bottom: 10px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    #timeline-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      #timeline {
+        width: 100%;
+      }
     }
-    #currentTime,
-    #totalTime {
-      font-weight: bold;
+    #controller-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 10px;
+      color: white;
+      .c-btn {
+        width: 36px;
+        height: 36px;
+        text-align: center;
+        cursor: pointer;
+      }
+      #controller-left {
+        display: flex;
+        align-items: center;
+        #playPauseBtn {
+          margin-right: 6px;
+          padding: 6px;
+          font-size: 24px;
+        }
+        #timeText {
+          margin-right: 6px;
+        }
+        #volumeBtn {
+          margin-right: 6px;
+          padding: 10px;
+          font-size: 16px;
+        }
+        #volumeRange {
+          width: 70px;
+        }
+      }
+      #controller-right {
+        #fullScreenBtn {
+          padding: 8px;
+          font-size: 20px;
+        }
+      }
     }
   }
 }

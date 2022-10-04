@@ -1,20 +1,25 @@
 const videoContainer = document.getElementById("videoContainer");
 const videoContainerOverlay = document.getElementById("videoContainerOverlay");
 const video = document.querySelector("video");
+
 const videoControls = document.getElementById("videoControls");
-const psBtn = videoControls.querySelector("#playPauseBtn");
+const timeline = document.getElementById("timeline");
+
+const psBtn = document.getElementById("playPauseBtn");
 const psIcon = psBtn.querySelector("i");
-const volumeBtn = videoControls.querySelector("#volume");
-const volumeIcon = volumeBtn.querySelector("i");
-const volumeRange = videoControls.querySelector("#volumeRange");
+
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
-const timeline = document.getElementById("timeline");
-const fullScreenBtn = document.getElementById("fullScreen");
+
+const volumeBtn = document.getElementById("volumeBtn");
+const volumeIcon = volumeBtn.querySelector("i");
+const volumeRange = document.getElementById("volumeRange");
+
+const fullScreenBtn = document.getElementById("fullScreenBtn");
+
 const textarea = document.getElementById("textarea");
 
 let controlsTimeout = null;
-let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -24,30 +29,50 @@ const handleOverlay = () => {
   }
 };
 
-const handlePlayAndStop = () => {
-  handleOverlay();
-  if (video.paused) {
-    video.play();
-    psIcon.className = "fas fa-pause";
-  } else {
-    video.pause();
-    psIcon.className = "fas fa-play";
+const handleKeyboard = (event) => {
+  // spacebar -> pause
+  if (event.target !== textarea && event.keyCode === 32) {
+    handlePlayAndStop();
+  }
+  // f, F -> enter fullscreen
+  if (event.target !== textarea && (event.keyCode === 102 || event.keyCode === 70)) {
+    videoContainer.requestFullscreen();
+  }
+  // Esc -> exit fullscreen
+  if (event.target !== textarea && event.keyCode === 27) {
+    document.exitFullscreen();
   }
 };
 
-const handleSound = () => {
-  if (video.muted) {
-    video.muted = false;
-    volumeRange.value = volumeValue;
-    volumeIcon.className = "fas fa-volume-up";
+const handleVideoClick = (event) => {
+  handlePlayAndStop();
+};
+
+const handleEnded = () => {
+  videoContainerOverlay.style.display = "block";
+  if (controlsTimeout) {
+    clearTimeout(controlsTimeout);
+    controlsTimeout = null;
+  }
+  videoControls.classList.add("showing");
+  psIcon.className = "fas fa-rotate-left";
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
+// Set timeline and buttons
+const handleFullscreen = () => {
+  const fullscreen = document.fullscreenElement;
+  if (fullscreen) {
+    document.exitFullscreen();
   } else {
-    video.muted = true;
-    volumeRange.value = 0;
-    volumeIcon.className = "fas fa-volume-mute";
+    videoContainer.requestFullscreen();
   }
 };
 
-const handleVolume = (event) => {
+const handleVolumeRange = (event) => {
   const {
     target: { value },
   } = event;
@@ -63,16 +88,27 @@ const handleVolume = (event) => {
   video.volume = volumeValue = value;
 };
 
-const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substring(11, 19);
-
-const handleLoadedMetadata = () => {
-  totalTime.innerText = formatTime(Math.floor(video.duration));
-  timeline.max = Math.floor(video.duration);
+const handleVolumeBtn = () => {
+  if (video.muted) {
+    video.muted = false;
+    volumeRange.value = volumeValue;
+    volumeIcon.className = "fas fa-volume-up";
+  } else {
+    video.muted = true;
+    volumeRange.value = 0;
+    volumeIcon.className = "fas fa-volume-mute";
+  }
 };
 
-const handleTimeUpdate = () => {
-  currentTime.innerText = formatTime(Math.floor(video.currentTime));
-  timeline.value = Math.floor(video.currentTime);
+const handlePlayAndStop = () => {
+  handleOverlay();
+  if (video.paused) {
+    video.play();
+    psIcon.className = "fas fa-pause";
+  } else {
+    video.pause();
+    psIcon.className = "fas fa-play";
+  }
 };
 
 const handleTimelineChange = (event) => {
@@ -82,75 +118,56 @@ const handleTimelineChange = (event) => {
   video.currentTime = value;
 };
 
-const handleFullscreen = () => {
-  const fullscreen = document.fullscreenElement;
-  if (fullscreen) {
-    document.exitFullscreen();
-    fullScreenBtn.innerText = "Enter Full Screen";
-  } else {
-    videoContainer.requestFullscreen();
-    fullScreenBtn.innerText = "Exit Full Screen";
-  }
-};
-
+// Show, Hide videoControls
 const hideControls = () => videoControls.classList.remove("showing");
+
+const handleMouseLeave = () => {
+  videoControls.classList.remove("showing");
+};
 
 const handleMouseMove = () => {
   if (controlsTimeout) {
     clearTimeout(controlsTimeout);
     controlsTimeout = null;
   }
-  if (controlsMovementTimeout) {
-    clearTimeout(controlsMovementTimeout);
-    controlsMovementTimeout = null;
-  }
   videoControls.classList.add("showing");
-  controlsMovementTimeout = setTimeout(hideControls, 3000);
-};
-
-const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
-const handleKeyboard = (event) => {
-  // spacebar -> pause
-  if (event.target !== textarea && event.keyCode === 32) {
-    handlePlayAndStop();
-  }
-  // f, F -> enter fullscreen
-  if (event.target !== textarea && (event.keyCode === 102 || event.keyCode === 70)) {
-    video.requestFullscreen();
-    fullScreenBtn.innerText = "Exit Full Screen";
-  }
-  // Esc -> exit fullscreen
-  if (event.target !== textarea && event.keyCode === 27) {
-    document.exitFullscreen();
-    fullScreenBtn.innerText = "Enter Full Screen";
-  }
+const handleControls = () => {
+  controlsTimeout = setTimeout(hideControls, 3000);
 };
 
-const handleVideoClick = (event) => {
-  handlePlayAndStop();
+// Set Timeline
+const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substring(14, 19);
+
+const handleTimeUpdate = () => {
+  currentTime.innerText = formatTime(Math.floor(video.currentTime));
+  timeline.value = Math.floor(video.currentTime);
 };
 
-const handleEnded = () => {
-  videoContainerOverlay.style.display = "block";
-  psIcon.className = "fas fa-rotate-left";
-  const { id } = videoContainer.dataset;
-  fetch(`/api/videos/${id}/view`, {
-    method: "POST",
-  });
+const handleLoadedMetadata = () => {
+  totalTime.innerText = formatTime(Math.floor(video.duration));
+  timeline.max = Math.floor(video.duration);
 };
 
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
-video.addEventListener("click", handleVideoClick);
+// Etc
 video.addEventListener("ended", handleEnded);
-psIcon.addEventListener("click", handlePlayAndStop);
-volumeIcon.addEventListener("click", handleSound);
-volumeRange.addEventListener("input", handleVolume);
+document.addEventListener("keyup", handleKeyboard);
+video.addEventListener("click", handleVideoClick);
+
+// Set timeline and buttons
+timeline.addEventListener("input", handleTimelineChange);
+psBtn.addEventListener("click", handlePlayAndStop);
+volumeBtn.addEventListener("click", handleVolumeBtn);
+volumeRange.addEventListener("input", handleVolumeRange);
+fullScreenBtn.addEventListener("click", handleFullscreen);
+
+// Show, Hide videoControls
+video.addEventListener("play", handleControls);
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
+
+// Set Timeline
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
-timeline.addEventListener("input", handleTimelineChange);
-fullScreenBtn.addEventListener("click", handleFullscreen);
-document.addEventListener("keyup", handleKeyboard);
