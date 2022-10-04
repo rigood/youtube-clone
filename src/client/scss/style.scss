@@ -5,6 +5,7 @@
 // Components
 @import "./components/header";
 @import "./components/nav";
+@import "./components/video";
 @import "./components/form";
 @import "./components/etc";
 @import "./components/videoPlayer";
@@ -12,6 +13,9 @@
 // Screens
 @import "./screens/home";
 @import "./screens/watch";
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 // Defaults
 
@@ -21,7 +25,7 @@
 
 body {
   margin-top: 60px;
-  font-family: Roboto, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 a {

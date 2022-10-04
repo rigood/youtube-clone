@@ -2,18 +2,17 @@ extends base
 include mixins/video
 
 block content
-    div#container
-        nav
-            include partials/nav
-        main
-            nav#filter
+    div#home__container
+        include partials/nav
+        main#home__main
+            nav#home__nav-filter
                 a(href="/") 전체
                 a(href="/hashtag=뉴진스") 뉴진스 (NewJeans)
                 a(href="/hashtag=아이브") 아이브 (IVE)
                 a(href="/hashtag=블랙핑크") 블랙핑크 (BLACKPINK)
                 a(href="/hashtag=아이들") (여자)아이들 ((G)I-DLE)
                 a(href="/hashtag=아이브") ITZY (있지)
-            section
+            section#home__section
                 each video in videos
                     +video(video)
                 else

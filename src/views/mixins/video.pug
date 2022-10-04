@@ -1,7 +1,18 @@
 mixin video(video)
-    a(href=`/videos/${video.id}`)
-        img(src="/"+video.thumbUrl, width="240", height="135")
-        h1 제목 : #{video.title}
-        h1 저자 : #{video.author.nickname || user.nickname}
-        h1 조회수 : #{video.meta.views}회
-        h1 날짜: #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+    a(href=`/videos/${video.id}`).video-mixin
+        img.video-mixin__thumb(src="/"+video.thumbUrl)
+        div.video-mixin__info
+            div.video-mixin__img
+                if (loggedInUser.avatarUrl.startsWith("http"))
+                    img(src=loggedInUser.avatarUrl).video-mixin__avatar
+                else
+                    img(src= "/" + loggedInUser.avatarUrl).video-mixin__avatar
+            div.video-mixin__details
+                h1.video-mixin__title #{video.title}
+                div.video-mixin__meta
+                    h2
+                    | #{video.author.nickname || user.nickname}
+                    h2
+                    | #{video.meta.views}회
+                    | •
+                    | #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
