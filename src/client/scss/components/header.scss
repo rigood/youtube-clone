@@ -82,3 +82,11 @@ header {
     }
   }
 }
+
+@media (max-width: 680px) {
+  .right {
+    i {
+      display: none;
+    }
+  }
+}
