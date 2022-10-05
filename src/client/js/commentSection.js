@@ -2,6 +2,8 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const deleteBtn = document.querySelectorAll(".comment__delBtn");
 const commentsCount = document.getElementById("commentsCount");
+const cancelBtn = document.getElementById("commentCancel");
+const commentInputBox = document.getElementById("commentInputBox");
 
 const addComment = (text, id, avatarUrl, nickname, createdAt) => {
   const commentList = document.getElementById("commentList");
@@ -69,7 +71,6 @@ const addComment = (text, id, avatarUrl, nickname, createdAt) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  const commentInputBox = document.getElementById("commentInputBox");
   const text = commentInputBox.value;
   const videoId = videoContainer.dataset.id;
 
@@ -113,10 +114,19 @@ const handleDelete = async (event) => {
   }
 };
 
+const handleCancel = (event) => {
+  event.preventDefault();
+  commentInputBox.value = "";
+};
+
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
 
 if (deleteBtn) {
   deleteBtn.forEach((btn) => btn.addEventListener("click", handleDelete));
+}
+
+if (cancelBtn) {
+  cancelBtn.addEventListener("click", handleCancel);
 }

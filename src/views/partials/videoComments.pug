@@ -13,7 +13,7 @@ div.video__comments
             form#commentForm.comment__contents
                 input#commentInputBox.comment__input(placeholder="댓글 추가...")
                 div.comment__btns
-                    button(type="button") 취소
+                    button(type="button")#commentCancel 취소
                     button(type="submit") 댓글
     ul#commentList
         each comment in video.comments.reverse()
