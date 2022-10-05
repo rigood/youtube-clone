@@ -37,7 +37,7 @@ const addComment = (text, id, avatarUrl, nickname, createdAt) => {
   commentMeta.appendChild(commentDate);
 
   const commentInput = document.createElement("div");
-  commentInput.classList.add("comment__input", "comment__input-btn");
+  commentInput.classList.add("comment__input", "comment__input--with--btn");
 
   const commentText = document.createElement("p");
   commentText.innerText = text;

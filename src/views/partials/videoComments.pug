@@ -27,7 +27,7 @@ div.video__comments
                     div.comment__meta
                         span.comment__author #{comment.author.nickname}
                         span.comment__date #{comment.createdAt.toLocaleDateString()}
-                    div.comment__input.comment__input-btn
+                    div.comment__input.comment__input--with--btn
                         p.comment__text #{comment.text}
                         if String(comment.author._id) === String(loggedInUser._id)
                             button.comment__delBtn
