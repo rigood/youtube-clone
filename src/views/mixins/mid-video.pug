@@ -1,0 +1,12 @@
+mixin video(video)
+    a(href=`/videos/${video.id}`).mid-mixin
+        img.mid-mixin__thumb(src="/"+video.thumbUrl)
+        div.mid-mixin__info
+            h1.mid-mixin__title #{video.title}
+            div.mid-mixin__meta
+                h2
+                | #{video.author.nickname || user.nickname}
+                h2
+                | #{video.meta.views}회
+                |  • 
+                | #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}

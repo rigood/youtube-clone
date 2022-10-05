@@ -1,0 +1,35 @@
+.profiile__container {
+  width: 100%;
+  padding: 50px 4vw;
+  .profile__title {
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+  .profile__user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    .profiile__user-avatar {
+      display: grid;
+      grid-template-columns: 100px auto;
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+      }
+    }
+    .profile__user-info {
+      .profile__user-name {
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+      .profile__user-edit {
+        font-size: 14px;
+        color: $gray;
+      }
+    }
+  }
+  .profile__videos {
+    max-width: 900px;
+  }
+}

@@ -7,6 +7,7 @@
 @import "./components/nav";
 @import "./components/video";
 @import "./components/asideVideo";
+@import "./components/midVideo";
 @import "./components/videoPlayer";
 @import "./components/videoInfo";
 @import "./components/videoComments";
@@ -15,6 +16,7 @@
 @import "./screens/base-with-nav";
 @import "./screens/home";
 @import "./screens/watch";
+@import "./screens/profile";
 
 // Fonts
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");

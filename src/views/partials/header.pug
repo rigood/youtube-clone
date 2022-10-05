@@ -17,7 +17,7 @@ header
                 i.fa-regular.fa-bell.header__icon
             a(href="/users/logout")
                 i.fas.fa-arrow-right-from-bracket.header__icon
-            a(href="/users/edit")
+            a(href=`/users/${loggedInUser._id}`)
                 if (loggedInUser.avatarUrl.startsWith("http"))
                     img(src=loggedInUser.avatarUrl).header__avatar
                 else

@@ -10,3 +10,14 @@
     gap: 10px;
   }
 }
+
+@media (max-width: 480px) {
+  .base__main {
+    grid-template-columns: 0 100%;
+    gap: 0;
+  }
+  // nav.scss
+  .nav__ul {
+    display: none;
+  }
+}

@@ -1,15 +1,22 @@
-extends base
-include mixins/aside-video
+extends base-with-nav
+include mixins/mid-video
 
 block content
-    if(user.avatarUrl.startsWith("http"))
-        img(src=user.avatarUrl, width="100", height="100")
-    else
-        img(src= "/" + user.avatarUrl, width="100", height="100")
-        
-    h1=user.nickname
-
-    each video in user.videos
-        +video(video)
-    else
-        span 동영상이 존재하지 않습니다.
+    div.profiile__container
+        h1.profile__title 내 프로필
+        div.profile__user
+            div.profiile__user-avatar
+                if(user.avatarUrl.startsWith("http"))
+                    img(src=user.avatarUrl)
+                else
+                    img(src= "/" + user.avatarUrl)
+            div.profile__user-info
+                h1.profile__user-name #{user.nickname}
+                div.profile__user-edit
+                    a(href="/users/edit") 프로필 변경 &rarr;
+        h1.profile__title 내 비디오
+        div.profile__videos
+            each video in user.videos.reverse()
+                +video(video)
+            else
+                span 동영상이 존재하지 않습니다.
