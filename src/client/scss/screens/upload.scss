@@ -1,0 +1,18 @@
+.user-form-wide {
+  max-width: 700px;
+}
+
+#actionBtn {
+  width: fit-content;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: $blue;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  i {
+    margin-right: 10px;
+  }
+}

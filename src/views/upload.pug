@@ -1,29 +1,32 @@
-extends base
+extends base-with-nav
 
 block content
-    div
-        video#preview
-        button#actionBtn 녹화하기
-    form(method="POST", enctype="multipart/form-data")
+    div.container
         if errorMsg
         div.error-msg=errorMsg
-        
-        label(for="video") 동영상
-        input(type="file", name="video", id="video", accept="video/*", required)
+        h1.title 동영상 업로드
+        form(method="POST", enctype="multipart/form-data").user-form.user-form-wide
+            video#preview
+            a#actionBtn
+                i.fas.fa-video
+                span 녹화 시작
 
-        label(for="thumb") 썸네일
-        input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)
+            label(for="video") 동영상
+            input(type="file", name="video", id="video", accept="video/*", required)
 
-        label(for="title") 제목
-        input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100")
+            label(for="thumb") 썸네일
+            input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)
 
-        label(for="description") 설명
-        input(name="description", id="description", placeholder="동영상에 대한 설명을 적어주세요." type="text", required, minLength="2")
+            label(for="title") 제목
+            input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100")
 
-        label(for="hashtags") 해쉬태그
-        input(name="hashtags", id="hashtags", placeholder="해쉬태그를 콤마(,)로 구분해서 입력해주세요." type="text", required, minLength="2")
+            label(for="description") 설명
+            input(name="description", id="description", placeholder="동영상에 대한 설명을 적어주세요." type="text", required, minLength="2")
 
-        input(type="submit", value="동영상 업로드")
+            label(for="hashtags") 해쉬태그
+            input(name="hashtags", id="hashtags", placeholder="예시 : #플레이리스트, #드라마, #코딩" type="text", required, minLength="2")
+
+            button(type="submit") 동영상 업로드
 
 block scripts
     script(src="/static/js/recorder.js")

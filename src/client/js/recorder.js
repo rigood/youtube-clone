@@ -1,6 +1,9 @@
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-const actionBtn = document.getElementById("actionBtn");
 const video = document.getElementById("preview");
+const actionBtn = document.getElementById("actionBtn");
+const actionIcon = actionBtn.querySelector("i");
+const actionLabel = actionBtn.querySelector("span");
+const headerAvatar = document.querySelector(".header__avatar");
 
 let stream;
 let recorder;
@@ -22,8 +25,11 @@ const downloadFile = (fileUrl, fileName) => {
 
 const handleDownload = async () => {
   actionBtn.removeEventListener("click", handleDownload);
-  actionBtn.innerText = "변환중";
   actionBtn.disabled = true;
+  actionIcon.classList.remove("fa-download");
+  actionIcon.classList.add("fa-spinner");
+  actionIcon.classList.add("fa-beat");
+  actionLabel.innerText = "다운로드 중";
 
   const ffmpeg = createFFmpeg({ log: true });
   await ffmpeg.load();
@@ -54,33 +60,44 @@ const handleDownload = async () => {
   URL.revokeObjectURL(thumbUrl);
   URL.revokeObjectURL(videoFile);
 
-  actionBtn.disabled = false;
-  actionBtn.innerText = "다시 녹화하기";
   actionBtn.addEventListener("click", handleStart);
+  actionBtn.disabled = false;
+  actionIcon.classList.remove("fa-spinner");
+  actionIcon.classList.remove("fa-beat");
+  actionIcon.classList.add("fa-video");
+  actionLabel.innerText = "녹화하기";
+  video.controls = false;
+  init();
+};
+
+const handleStop = () => {
+  actionBtn.removeEventListener("click", handleStop);
+  actionBtn.addEventListener("click", handleDownload);
+  actionIcon.classList.remove("fa-beat");
+  actionIcon.classList.remove("fa-video");
+  actionIcon.classList.add("fa-download");
+  actionLabel.innerText = "다운로드";
+  recorder.stop();
 };
 
 const handleStart = () => {
-  actionBtn.innerText = "녹화중";
-  actionBtn.disabled = true;
   actionBtn.removeEventListener("click", handleStart);
+  actionBtn.addEventListener("click", handleStop);
+  actionIcon.classList.add("fa-beat");
+  actionLabel.innerText = "녹화 종료";
   recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
   recorder.ondataavailable = (event) => {
     videoFile = URL.createObjectURL(event.data);
     video.srcObject = null;
     video.src = videoFile;
-    video.loop = true;
+    video.controls = true;
     video.play();
-    actionBtn.innerText = "다운로드";
-    actionBtn.disabled = false;
-    actionBtn.addEventListener("click", handleDownload);
   };
   recorder.start();
-  setTimeout(() => {
-    recorder.stop();
-  }, 5000);
 };
 
 const init = async () => {
+  headerAvatar.style.display = "none";
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {

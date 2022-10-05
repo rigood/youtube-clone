@@ -32,3 +32,9 @@ export const avatarUpload = multer({
 export const videoUpload = multer({
   dest: "uploads/videos/",
 });
+
+export const uploadMiddleware = (req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+};
