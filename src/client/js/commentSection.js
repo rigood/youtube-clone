@@ -1,6 +1,6 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-const deleteBtn = document.querySelectorAll(".comment-delBtn");
+const deleteBtn = document.querySelectorAll(".comment__delBtn");
 const commentsCount = document.getElementById("commentsCount");
 
 const addComment = (text, id, avatarUrl, nickname, createdAt) => {
@@ -8,42 +8,42 @@ const addComment = (text, id, avatarUrl, nickname, createdAt) => {
 
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
-  newComment.className = "comment-box";
+  newComment.className = "comment__box";
 
   const commentAvatar = document.createElement("div");
-  commentAvatar.className = "comment-avatar";
+  commentAvatar.className = "comment__avatar";
 
   const commentAvatarImg = document.createElement("img");
-  commentAvatarImg.className = "comment-avatar-img";
+  commentAvatarImg.className = "comment__avatar-img";
   commentAvatarImg.src = avatarUrl.startsWith("http") ? avatarUrl : "/" + avatarUrl;
 
   commentAvatar.appendChild(commentAvatarImg);
 
   const commentContents = document.createElement("div");
-  commentContents.className = "comment-contents";
+  commentContents.className = "comment__contents";
 
   const commentMeta = document.createElement("div");
-  commentMeta.className = "comment-meta";
+  commentMeta.className = "comment__meta";
 
   const commentAuthor = document.createElement("span");
-  commentAuthor.className = "comment-author";
+  commentAuthor.className = "comment__author";
   commentAuthor.innerText = nickname;
 
   const commentDate = document.createElement("span");
-  commentDate.className = "comment-date";
+  commentDate.className = "comment__date";
   commentDate.innerText = createdAt;
 
   commentMeta.appendChild(commentAuthor);
   commentMeta.appendChild(commentDate);
 
   const commentInput = document.createElement("div");
-  commentInput.classList.add("comment-input", "comment-input-btn");
+  commentInput.classList.add("comment__input", "comment__input-btn");
 
   const commentText = document.createElement("p");
   commentText.innerText = text;
 
   const commentDelBtn = document.createElement("button");
-  commentDelBtn.className = "comment-delBtn";
+  commentDelBtn.className = "comment__delBtn";
   commentDelBtn.addEventListener("click", handleDelete);
 
   const i = document.createElement("i");
@@ -69,8 +69,8 @@ const addComment = (text, id, avatarUrl, nickname, createdAt) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  const commentInput = document.getElementById("commentInput");
-  const text = commentInput.value;
+  const commentInputBox = document.getElementById("commentInputBox");
+  const text = commentInputBox.value;
   const videoId = videoContainer.dataset.id;
 
   if (text === "") {
@@ -86,7 +86,7 @@ const handleSubmit = async (event) => {
   });
 
   if (response.status === 201) {
-    commentInput.value = "";
+    commentInputBox.value = "";
     const { newCommentId, avatarUrl, nickname, createdAt } = await response.json();
     addComment(text, newCommentId, avatarUrl, nickname, createdAt);
   }

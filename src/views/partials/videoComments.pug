@@ -1,0 +1,34 @@
+div.video__comments
+    div.comment__count
+        span 댓글 
+        span#commentsCount #{video.comments.length}
+        span 개
+    if loggedIn
+        div.comment__box
+            div.comment__avatar
+                if(loggedInUser.avatarUrl.startsWith("http"))
+                    img(src=loggedInUser.avatarUrl).comment__avatar-img
+                else
+                    img(src="/"+loggedInUser.avatarUrl).comment__avatar-img
+            form#commentForm.comment__contents
+                input#commentInputBox.comment__input(placeholder="댓글 추가...")
+                div.comment__btns
+                    button(type="button") 취소
+                    button(type="submit") 댓글
+    ul#commentList
+        each comment in video.comments.reverse()
+            li(data-id=comment._id).comment__box
+                div.comment__avatar
+                    if(comment.author.avatarUrl.startsWith("http"))
+                        img(src=comment.author.avatarUrl).comment__avatar-img
+                    else
+                        img(src="/"+comment.author.avatarUrl).comment__avatar-img
+                div.comment__contents
+                    div.comment__meta
+                        span.comment__author #{comment.author.nickname}
+                        span.comment__date #{comment.createdAt.toLocaleDateString()}
+                    div.comment__input.comment__input-btn
+                        p.comment__text #{comment.text}
+                        if String(comment.author._id) === String(loggedInUser._id)
+                            button.comment__delBtn
+                                i.fas.fa-trash-can

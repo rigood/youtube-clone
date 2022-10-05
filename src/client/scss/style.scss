@@ -1,17 +1,18 @@
 // Config
-@import "./config/_variables";
 @import "./config/_reset";
+@import "./config/_variables";
 
 // Components
 @import "./components/header";
 @import "./components/nav";
 @import "./components/video";
 @import "./components/asideVideo";
-@import "./components/form";
-@import "./components/etc";
 @import "./components/videoPlayer";
+@import "./components/videoInfo";
+@import "./components/videoComments";
 
 // Screens
+@import "./screens/base-with-nav";
 @import "./screens/home";
 @import "./screens/watch";
 

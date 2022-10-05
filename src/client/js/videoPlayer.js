@@ -17,7 +17,7 @@ const volumeRange = document.getElementById("volumeRange");
 
 const fullScreenBtn = document.getElementById("fullScreenBtn");
 
-const textarea = document.getElementById("textarea");
+const commentInputBox = document.getElementById("commentInputBox");
 
 let controlsTimeout = null;
 let volumeValue = 0.5;
@@ -30,7 +30,7 @@ const handleOverlay = () => {
 };
 
 const handleKeyboard = (event) => {
-  if (event.target === textarea) {
+  if (event.target === commentInputBox) {
     return;
   }
   // spacebar -> play/pause

@@ -19,7 +19,7 @@ header {
 .header__left {
   display: flex;
   align-items: center;
-  #header__menu {
+  .header__menu {
     width: 40px;
     text-align: center;
   }
@@ -60,7 +60,7 @@ header {
 .header__right {
   display: flex;
   align-items: center;
-  i {
+  .header__icon {
     margin: 0 16px;
   }
   .header__avatar {
@@ -85,7 +85,7 @@ header {
 }
 
 @media (max-width: 680px) {
-  .right {
+  .header__right {
     i {
       display: none;
     }

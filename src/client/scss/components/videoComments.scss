@@ -1,0 +1,53 @@
+.video__comments {
+  .comment__count {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  .comment__box {
+    display: grid;
+    grid-template-columns: 48px auto;
+    margin-bottom: 10px;
+    .comment__avatar {
+      .comment__avatar-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+    }
+    .comment__contents {
+      display: flex;
+      flex-direction: column;
+      #commentInputBox {
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid $border;
+        transition: all 0.5s ease-in-out;
+        &:focus {
+          border-color: black;
+        }
+      }
+      .comment__input {
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+      .comment__btns {
+        text-align: right;
+      }
+      .comment__meta {
+        margin-bottom: 5px;
+        font-weight: 500;
+        .comment__author {
+          margin-right: 5px;
+          font-size: 13px;
+        }
+        .comment__date {
+          font-size: 12px;
+        }
+      }
+      .comment__input-btn {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

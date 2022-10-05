@@ -1,4 +1,4 @@
-#nav-ul {
+.nav__ul {
   width: 100%;
   padding-top: 12px;
   li {
@@ -35,7 +35,7 @@
 }
 
 @media (max-width: 1300px) {
-  ul {
+  .nav__ul {
     li {
       flex-direction: column;
       justify-content: center;
