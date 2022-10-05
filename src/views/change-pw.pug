@@ -1,21 +1,21 @@
-extends base
+extends base-with-nav
 
 block content
-    form(method="POST")
-        if errorMsg
-            div.error-msg=errorMsg
+    if errorMsg
+        div.error-msg=errorMsg
+    div.user__container
+        form(method="POST").user-form
+            label(for="oldPw") 기존 비밀번호
+            input(name="oldPw", id="oldPw",placeholder="기존 비밀번호 입력", type="password", required, minLength="4", autocomplete="new-password")
 
-        label(for="oldPw") 기존 비밀번호
-        input(name="oldPw", id="oldPw",placeholder="기존 비밀번호 입력", type="password", required, minLength="4", autocomplete="new-password")
+            label(for="password") 새 비밀번호
+            input(name="password", id="password",placeholder="새 비밀번호 4자리 이상 입력", type="password", required, minLength="4", autocomplete="new-password")
 
-        label(for="password") 새 비밀번호
-        input(name="password", id="password",placeholder="새 비밀번호 4자리 이상 입력", type="password", required, minLength="4", autocomplete="new-password")
+            label(for="passwordConfirmation") 새 비밀번호 확인
+            div.pw-confirm-msg
+            input(name="passwordConfirmation", id="passwordConfirmation",placeholder="새 비밀번호 한번 더 입력", type="password", required, minLength="4", autocomplete="new-password")
 
-        label(for="passwordConfirmation") 새 비밀번호 확인
-        input(name="passwordConfirmation", id="passwordConfirmation",placeholder="새 비밀번호 한번 더 입력", type="password", required, minLength="4", autocomplete="new-password")
-        span.pw-confirm-msg
-
-        input(type="submit", value="변경하기")
+            button(type="submit") 변경
 
 block scripts
     script(src="/static/js/join.js")

@@ -28,9 +28,14 @@
       background-color: $darkBlue;
     }
   }
-  h6 {
+  .info {
     margin: 15px 0;
     font-size: 14px;
+  }
+  .pw-confirm-msg {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: $red;
   }
 }
 

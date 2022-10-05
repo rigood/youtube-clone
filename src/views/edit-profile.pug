@@ -3,7 +3,7 @@ extends base-with-nav
 block content
     if errorMsg
         div.error-msg=errorMsg
-    div.profile__container
+    div.user__container
         h1.profile__title 현재 프로필
         div.profile__user
             div.profiile__user-avatar
@@ -24,7 +24,7 @@ block content
                 img(src=loggedInUser.avatarUrl, width="100", height="100").preview
             else
                 img(src= "/" + loggedInUser.avatarUrl, width="100", height="100").preview
-            h6 ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
+            div.info ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
             input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
 
             label(for="email") 이메일
