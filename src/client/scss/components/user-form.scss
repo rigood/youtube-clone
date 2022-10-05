@@ -1,7 +1,8 @@
 .user-form {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  width: 100%;
+  max-width: 480px;
   label {
     margin-bottom: 10px;
   }
@@ -11,6 +12,9 @@
     border-radius: 4px;
     border: 1px solid $border;
   }
+  input[name="passwordConfirmation"] {
+    margin-bottom: 10px;
+  }
   input[type="text"],
   input[type="email"],
   input[type="password"] {
@@ -19,9 +23,9 @@
     }
   }
   button {
-    width: fit-content;
-    padding: 8px 12px;
-    border-radius: 4px;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 12px;
     background-color: $blue;
     color: white;
     &:hover {
@@ -33,7 +37,7 @@
     font-size: 14px;
   }
   .pw-confirm-msg {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-size: 14px;
     color: $red;
   }

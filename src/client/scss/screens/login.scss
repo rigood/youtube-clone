@@ -1,0 +1,41 @@
+.divide {
+  width: 100%;
+  margin-bottom: 30px;
+  border-top: 1px solid $border;
+  opacity: 0.8;
+}
+
+.smallBtn {
+  align-self: center;
+  width: 50%;
+}
+
+.largeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: center;
+  i {
+    margin-right: 10px;
+  }
+}
+
+.github {
+  background-color: black;
+  color: white;
+}
+
+.kakao {
+  background-color: $yellow;
+  color: $kakaoLabel;
+}
+
+.join {
+  background-color: $red;
+  color: white;
+}

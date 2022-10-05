@@ -3,7 +3,8 @@ extends base-with-nav
 block content
     if errorMsg
         div.error-msg=errorMsg
-    div.user__container
+    div.container.container--center
+        h1.title 비밀번호 변경
         form(method="POST").user-form
             label(for="oldPw") 기존 비밀번호
             input(name="oldPw", id="oldPw",placeholder="기존 비밀번호 입력", type="password", required, minLength="4", autocomplete="new-password")
@@ -12,8 +13,8 @@ block content
             input(name="password", id="password",placeholder="새 비밀번호 4자리 이상 입력", type="password", required, minLength="4", autocomplete="new-password")
 
             label(for="passwordConfirmation") 새 비밀번호 확인
-            div.pw-confirm-msg
             input(name="passwordConfirmation", id="passwordConfirmation",placeholder="새 비밀번호 한번 더 입력", type="password", required, minLength="4", autocomplete="new-password")
+            div.pw-confirm-msg
 
             button(type="submit") 변경
 

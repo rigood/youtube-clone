@@ -18,6 +18,7 @@
 @import "./screens/home";
 @import "./screens/watch";
 @import "./screens/profile";
+@import "./screens/login";
 
 // Fonts
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
@@ -51,6 +52,23 @@ input {
   &:focus {
     outline: none;
   }
+}
+
+.container {
+  width: 100%;
+  padding: 50px 4vw;
+}
+
+.container--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.title {
+  margin-bottom: 30px;
+  font-size: 24px;
 }
 
 @keyframes goAway {
