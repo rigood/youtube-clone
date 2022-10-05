@@ -1,17 +1,19 @@
-extends base
+extends base-with-nav
 
 block content
-    form(method="POST")
+    div.container
         if errorMsg
         div.error-msg=errorMsg
-        
-        label(for="title") 제목
-        input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100", value=video.title)
+        h1.title 동영상 수정
+        form(method="POST").user-form
+            
+            label(for="title") 제목
+            input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100", value=video.title)
 
-        label(for="description") 설명
-        input(name="description", id="description", placeholder="동영상에 대한 설명을 적어주세요." type="text", required, minLength="2", value=video.description)
+            label(for="description") 설명
+            textarea(name="description", id="description", placeholder="동영상에 대한 설명을 적어주세요." , required, minLength="2", wrap="hard") #{video.description}
 
-        label(for="hashtags") 해쉬태그
-        input(name="hashtags", id="hashtags", placeholder="해쉬태그를 콤마(,)로 구분해서 입력해주세요." type="text", required, minLength="2", value=video.hashtags.join())
+            label(for="hashtags") 해쉬태그
+            input(name="hashtags", id="hashtags", placeholder="해쉬태그를 콤마(,)로 구분해서 입력해주세요." type="text", required, minLength="1", value=video.hashtags.join())
 
-        input(type="submit", value="동영상 수정")
+            button(type="submit") 동영상 수정

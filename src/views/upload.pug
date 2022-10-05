@@ -21,7 +21,7 @@ block content
             input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100")
 
             label(for="description") 설명
-            textarea(name="textarea", id="description", placeholder="동영상에 대한 설명을 적어주세요." , required, minLength="2")
+            textarea(name="description", id="description", placeholder="동영상에 대한 설명을 적어주세요." , required, minLength="2", wrap="physical", cols="100")
 
             label(for="hashtags") 해쉬태그
             input(name="hashtags", id="hashtags", placeholder="예시 : #플레이리스트, #드라마, #코딩" type="text", required, minLength="1")
