@@ -1,9 +1,11 @@
-extends base
-include mixins/video
-
+extends base-with-nav
+include mixins/mid-video
 
 block content
-    each video in videos
-        +video(video)
-    else
-        span '#{keyword}' 에 대한 검색 결과가 없습니다.
+    div.container
+        div.search__videos
+            h1.title #{keyword} 관련 동영상
+            each video in videos
+                +video(video)
+            else
+                div.noVideo '#{keyword}' 에 대한 검색 결과가 없습니다.
