@@ -37,14 +37,17 @@ const handleKeyboard = (event) => {
   if (event.keyCode === 32) {
     event.preventDefault();
     handlePlayAndStop();
+    handleControls();
   }
   // f, F -> enter fullscreen
   if (event.keyCode === 102 || event.keyCode === 70) {
     videoContainer.requestFullscreen();
+    handleControls();
   }
   // Esc -> exit fullscreen
   if (event.keyCode === 27) {
     document.exitFullscreen();
+    handleControls();
   }
 };
 
@@ -139,6 +142,7 @@ const handleMouseMove = () => {
 };
 
 const handleControls = () => {
+  videoControls.classList.add("showing");
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 
@@ -157,7 +161,7 @@ const handleLoadedMetadata = () => {
 
 // Etc
 video.addEventListener("ended", handleEnded);
-document.addEventListener("keyup", handleKeyboard);
+document.addEventListener("keydown", handleKeyboard);
 video.addEventListener("click", handleVideoClick);
 
 // Set timeline and buttons
@@ -168,7 +172,7 @@ volumeRange.addEventListener("input", handleVolumeRange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 
 // Show, Hide videoControls
-video.addEventListener("play", handleControls);
+video.addEventListener("loadedmetadata", handleControls);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 
