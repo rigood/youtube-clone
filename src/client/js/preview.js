@@ -10,7 +10,7 @@ const handleFile = (event) => {
 
     // 이미지 로드 되면
     reader.onload = (event) => {
-      const preview = document.querySelector("img");
+      const preview = document.querySelector(".preview");
       preview.src = event.target.result;
     };
 

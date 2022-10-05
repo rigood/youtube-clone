@@ -1,29 +1,39 @@
-extends base
+extends base-with-nav
 
 block content
-    form(method="POST", enctype="multipart/form-data")
-        if errorMsg
-            div.error-msg=errorMsg
+    if errorMsg
+        div.error-msg=errorMsg
+    div.profile__container
+        h1.profile__title 현재 프로필
+        div.profile__user
+            div.profiile__user-avatar
+                if(loggedInUser.avatarUrl.startsWith("http"))
+                    img(src=loggedInUser.avatarUrl)
+                else
+                    img(src= "/" + loggedInUser.avatarUrl)
+            div.profile__user-info
+                h1.profile__user-name #{loggedInUser.nickname}
+                div.profile__user-edit
+                    if !loggedInUser.socialOnly
+                        a(href="/users/change-pw") 비밀번호 변경 &rarr;
+                    else
+                        span 소셜 로그인
+        h1.profile__title 프로필 변경
+        form(method="POST", enctype="multipart/form-data").user-form
+            if(loggedInUser.avatarUrl.startsWith("http"))
+                img(src=loggedInUser.avatarUrl, width="100", height="100").preview
+            else
+                img(src= "/" + loggedInUser.avatarUrl, width="100", height="100").preview
+            h6 ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
+            input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
 
-        if(loggedInUser.avatarUrl.startsWith("http"))
-            img(src=loggedInUser.avatarUrl, width="100", height="100")
-        else
-            img(src= "/" + loggedInUser.avatarUrl, width="100", height="100")
+            label(for="email") 이메일
+            input(name="email", id="email",placeholder="이메일", type="email", required, value=loggedInUser.email)
 
+            label(for="nickname") 닉네임
+            input(name="nickname", id="nickname", placeholder="닉네임" type="text", required, maxLength="15", value=loggedInUser.nickname)
 
-        label(for="avatar") 프로필 사진
-        input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
-
-        label(for="email") 이메일
-        input(name="email", id="email",placeholder="이메일", type="email", required, value=loggedInUser.email)
-
-        label(for="nickname") 닉네임
-        input(name="nickname", id="nickname", placeholder="닉네임" type="text", required, maxLength="15", value=loggedInUser.nickname)
-
-        input(type="submit", value="변경하기")
-
-        if !loggedInUser.socialOnly
-            a(href="change-pw") 비밀번호 변경 &rarr;
+            button(type="submit") 변경
 
 block scripts
-    script(src="/static/js/editProfile.js")
+    script(src="/static/js/preview.js")
