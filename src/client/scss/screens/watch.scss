@@ -2,11 +2,28 @@
   display: grid;
   grid-template-columns: auto 400px;
   gap: 24px;
-  padding: 18px 72px;
+  padding: 18px 4vw;
   .watch__left {
     .watch__left-below {
       width: 100%;
       margin: 12px 0 24px 0;
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .watch__container {
+    padding: 18px 2vw;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .watch__container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    .watch__right {
+      display: none;
     }
   }
 }
