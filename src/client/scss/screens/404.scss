@@ -1,0 +1,20 @@
+.main-404 {
+  width: 100%;
+  text-align: center;
+  img {
+    margin-top: 160px;
+    margin-bottom: 40px;
+  }
+  h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  .timer {
+    font-size: 20px;
+    span:first-child {
+      font-size: 28px;
+      font-weight: 700;
+      color: $red;
+    }
+  }
+}

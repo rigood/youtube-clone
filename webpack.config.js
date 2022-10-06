@@ -14,6 +14,7 @@ module.exports = {
     filter: BASE_JS + "filter.js",
     link: BASE_JS + "link.js",
     login: BASE_JS + "login.js",
+    timer: BASE_JS + "timer.js",
   },
   mode: "development",
   watch: true,
