@@ -40,7 +40,9 @@
   }
 }
 
-.preview {
+.avatarPreview {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 
@@ -59,4 +61,8 @@
 .file-size-msg {
   margin: 15px 0;
   font-size: 14px;
+}
+
+.thumbnailPreview {
+  margin-bottom: 10px;
 }

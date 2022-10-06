@@ -92,7 +92,14 @@ export const postEdit = async (req, res) => {
       user: { _id },
     },
     body: { title, description, hashtags },
+    files: { thumb },
   } = req;
+
+  const thumbSize = thumb[0].size;
+
+  if (thumbSize > 5000000) {
+    return res.status(500).render("upload", { pageTitle, errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+  }
 
   const video = await Video.findById(id);
   if (!video) {
@@ -108,6 +115,7 @@ export const postEdit = async (req, res) => {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
+    thumbUrl: thumb[0].path,
   });
 
   req.flash("success", "동영상이 수정되었습니다.");

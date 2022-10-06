@@ -1,4 +1,5 @@
 const file = document.getElementById("avatar");
+const file2 = document.getElementById("thumb");
 
 const handleFile = (event) => {
   const input = event.target;
@@ -19,4 +20,10 @@ const handleFile = (event) => {
   }
 };
 
-file.addEventListener("change", handleFile);
+if (file) {
+  file.addEventListener("change", handleFile);
+}
+
+if (file2) {
+  file2.addEventListener("change", handleFile);
+}

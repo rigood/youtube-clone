@@ -3,10 +3,13 @@ extends base-with-nav
 block content
     div.container
         if errorMsg
-        div.error-msg=errorMsg
+            div.error-msg=errorMsg
         h1.title 동영상 수정
-        form(method="POST").user-form
-            
+        form(method="POST", enctype="multipart/form-data").user-form
+            label(for="thumb") 썸네일
+            img(src="/"+video.thumbUrl).thumbnailPreview.preview
+            input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)
+
             label(for="title") 제목
             input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100", value=video.title)
 
@@ -17,3 +20,6 @@ block content
             input(name="hashtags", id="hashtags", placeholder="해쉬태그를 콤마(,)로 구분해서 입력해주세요." type="text", required, minLength="1", value=video.hashtags.join())
 
             button(type="submit") 동영상 수정
+
+block scripts
+    script(src="/static/js/preview.js")
