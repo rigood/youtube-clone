@@ -13,10 +13,13 @@ header
         if loggedIn
             a(href="/videos/upload")
                 i.fas.fa-video.header__icon
+                span.tooltip 업로드
             a(href=`/users/edit`)
                 i.fas.fa-gear.header__icon
+                span.tooltip 정보수정
             a(href="/users/logout")
                 i.fas.fa-arrow-right-from-bracket.header__icon
+                span.tooltip 로그아웃
             a(href=`/users/${loggedInUser._id}`)
                 if (loggedInUser.avatarUrl.startsWith("http"))
                     img(src=loggedInUser.avatarUrl).header__avatar

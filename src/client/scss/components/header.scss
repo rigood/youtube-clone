@@ -60,8 +60,29 @@ header {
 .header__right {
   display: flex;
   align-items: center;
+  a {
+    display: inline-block;
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: -30px;
+      padding: 10px;
+      border-radius: 2px;
+      background-color: $tooltip;
+      color: white;
+      font-size: 12px;
+      text-align: center;
+    }
+    &:hover .tooltip {
+      display: block;
+    }
+    &:hover .fas {
+      color: $blue;
+    }
+  }
+
   .header__icon {
-    margin: 0 16px;
+    margin: 0 18px;
   }
   .header__avatar {
     width: 32px;
