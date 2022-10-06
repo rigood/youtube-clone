@@ -13,6 +13,7 @@ module.exports = {
     commentSection: BASE_JS + "commentSection.js",
     filter: BASE_JS + "filter.js",
     link: BASE_JS + "link.js",
+    login: BASE_JS + "login.js",
   },
   mode: "development",
   watch: true,
