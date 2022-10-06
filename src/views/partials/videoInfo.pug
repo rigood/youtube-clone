@@ -5,7 +5,7 @@ div.video__info
     div.video__title #{video.title}
     div.video__meta       
         span.video__views 조회수 #{video.meta.views}회 •
-        span.video__date #{new Date(video.createdAt).toLocaleDateString()}
+        span.video__date #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
     hr
     div.video__author-btns
         a(href=`/users/${video.author._id}`).video__author

@@ -13,6 +13,6 @@ mixin video(video)
                     h2
                     | #{video.author.nickname || user.nickname}
                     h2
-                    | #{video.meta.views}회
+                    | 조회수 #{video.meta.views}회
                     |  • 
-                    | #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+                    | #{moment(video.createdAt).fromNow()}

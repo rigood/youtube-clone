@@ -5,6 +5,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import flash from "express-flash";
 import { localsMiddleware } from "./middlewares";
+import "moment/locale/ko";
 
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
