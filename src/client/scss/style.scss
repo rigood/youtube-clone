@@ -100,7 +100,7 @@ textarea {
   right: 0;
   margin: 0 auto;
   width: fit-content;
-  padding: 20px 40px;
+  padding: 10px 20px;
   border-radius: 12px;
   text-align: center;
   font-weight: 700;
@@ -108,14 +108,14 @@ textarea {
   white-space: pre;
   line-height: 1.5;
   animation: goAway 1s ease-in-out forwards;
-  animation-delay: 5s;
+  animation-delay: 3s;
   &.error {
-    background-color: #fff5f5;
-    color: #e34343;
+    background-color: $red;
+    color: white;
   }
   &.success {
-    background-color: #f2faff;
-    color: #42a2e5;
+    background-color: black;
+    color: white;
   }
 }
 
