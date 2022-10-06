@@ -37,17 +37,25 @@
       background-color: $darkBlue;
     }
   }
-  .info {
-    margin: 15px 0;
-    font-size: 14px;
-  }
-  .pw-confirm-msg {
-    margin-bottom: 30px;
-    font-size: 14px;
-    color: $red;
-  }
 }
 
 .preview {
   border-radius: 50%;
+}
+
+.pw-confirm-msg {
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: $red;
+}
+
+.social-email-msg {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: $red;
+}
+
+.file-size-msg {
+  margin: 15px 0;
+  font-size: 14px;
 }

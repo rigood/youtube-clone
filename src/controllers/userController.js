@@ -24,6 +24,7 @@ export const postJoin = async (req, res) => {
       nickname,
       avatarUrl: "uploads/avatars/default.jpg",
     });
+    req.flash("success", "🎉 회원가입이 완료되었습니다. 🎉");
     return res.redirect("/login");
   } catch (error) {
     console.log(error.errmsg);
@@ -62,18 +63,24 @@ export const getEdit = (req, res) => {
 };
 
 export const postEdit = async (req, res) => {
+  const pageTitle = "프로필 변경";
   const {
     session: {
-      user: { _id, avatarUrl },
+      user: { _id, avatarUrl, email: oldEmail },
     },
     body: { email, nickname },
     file,
   } = req;
 
-  const avatarSize = file.size;
+  if (file && file.size > 5000000) {
+    return res.status(500).render("edit-profile", { pageTitle, errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+  }
 
-  if (avatarSize > 5000000) {
-    return res.status(500).render("edit-profile", { pageTitle: "프로필 변경", errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+  if (email !== oldEmail) {
+    const duplicate = await User.exists({ email });
+    if (duplicate) {
+      return res.status(400).render("edit-profile", { pageTitle, errorMsg: "이미 사용 중인 이메일입니다." });
+    }
   }
 
   const updatedUser = await User.findByIdAndUpdate(
@@ -87,7 +94,7 @@ export const postEdit = async (req, res) => {
   );
 
   req.session.user = updatedUser;
-  req.flash("success", "비밀번호가 변경되었습니다.");
+  req.flash("success", "프로필이 변경되었습니다.");
   return res.redirect("/users/edit");
 };
 
@@ -100,11 +107,11 @@ export const getChangePw = (req, res) => {
 };
 
 export const postChangePw = async (req, res) => {
+  const pageTitle = "비밀번호 변경";
   const {
     session: { user: _id },
     body: { oldPw, password, passwordConfirmation },
   } = req;
-  const pageTitle = "비밀번호 변경";
 
   const user = await User.findById(_id);
 
@@ -114,7 +121,7 @@ export const postChangePw = async (req, res) => {
   }
 
   if (password !== passwordConfirmation) {
-    return res.status(400).render("change-pw", { pageTitle, errorMsg: "새 비밀번호가 일치하지 않습니다." });
+    return res.status(400).render("change-pw", { pageTitle, errorMsg: "새로운 비밀번호가 일치하지 않습니다." });
   }
 
   if (oldPw === password) {
@@ -123,8 +130,9 @@ export const postChangePw = async (req, res) => {
 
   user.password = password;
   await user.save();
-  req.flash("success", "비밀번호가 변경되었습니다.");
-  req.session.destroy();
+  req.session.user = null;
+  req.session.loggedIn = false;
+  req.flash("success", "비밀번호가 변경되었습니다.\n다시 로그인 해주세요.");
   return res.redirect("/login");
 };
 
@@ -196,7 +204,7 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
-    req.flash("success", "회원가입이 완료되었습니다.");
+    req.flash("success", "😀 환영합니다.");
     return res.redirect("/");
   } else {
     return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });
@@ -266,7 +274,7 @@ export const finishKakaoLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
-    req.flash("success", "회원가입이 완료되었습니다.");
+    req.flash("success", "😀 환영합니다.");
     return res.redirect("/");
   } else {
     return res.render("login", { pageTitle, errorMsg: "다시 시도해주시기 바랍니다." });

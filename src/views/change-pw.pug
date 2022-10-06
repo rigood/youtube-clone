@@ -1,9 +1,23 @@
 extends base-with-nav
 
 block content
-    if errorMsg
-        div.error-msg=errorMsg
-    div.container.container-center
+    div.container
+        if errorMsg
+            div.error-msg=errorMsg
+        h1.profile__title 현재 프로필
+        div.profile__user
+            div.profiile__user-avatar
+                if(loggedInUser.avatarUrl.startsWith("http"))
+                    img(src=loggedInUser.avatarUrl)
+                else
+                    img(src= "/" + loggedInUser.avatarUrl)
+            div.profile__user-info
+                h1.profile__user-name #{loggedInUser.nickname}
+                div.profile__user-meta
+                    if loggedInUser.socialOnly
+                        span 소셜 로그인
+                    else
+                        span 일반 로그인
         h1.title 비밀번호 변경
         form(method="POST").user-form
             label(for="oldPw") 기존 비밀번호

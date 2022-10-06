@@ -1,9 +1,9 @@
 extends base-with-nav
 
 block content
-    if errorMsg
-        div.error-msg=errorMsg
     div.container
+        if errorMsg
+            div.error-msg=errorMsg
         h1.profile__title 현재 프로필
         div.profile__user
             div.profiile__user-avatar
@@ -13,7 +13,7 @@ block content
                     img(src= "/" + loggedInUser.avatarUrl)
             div.profile__user-info
                 h1.profile__user-name #{loggedInUser.nickname}
-                div.profile__user-edit
+                div.profile__user-meta
                     if !loggedInUser.socialOnly
                         a(href="/users/change-pw") 비밀번호 변경 &rarr;
                     else
@@ -24,11 +24,13 @@ block content
                 img(src=loggedInUser.avatarUrl, width="100", height="100").preview
             else
                 img(src= "/" + loggedInUser.avatarUrl, width="100", height="100").preview
-            div.info ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
+            div.file-size-msg ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
             input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
 
             label(for="email") 이메일
-            input(name="email", id="email",placeholder="이메일", type="email", required, value=loggedInUser.email)
+            if(loggedInUser.socialOnly)
+                span.social-email-msg ※ 소셜 로그인 회원은 이메일을 변경할 수 없습니다.
+            input(name="email", id="email",placeholder="이메일", type="email", required, value=loggedInUser.email, readonly=loggedInUser.socialOnly ? true: false)
 
             label(for="nickname") 닉네임
             input(name="nickname", id="nickname", placeholder="닉네임" type="text", required, maxLength="15", value=loggedInUser.nickname)

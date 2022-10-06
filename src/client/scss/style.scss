@@ -98,18 +98,31 @@ textarea {
   left: 0;
   right: 0;
   margin: 0 auto;
-  max-width: 200px;
-  padding: 10px 20px;
-  border-radius: 10000px;
+  width: fit-content;
+  padding: 20px 40px;
+  border-radius: 12px;
   text-align: center;
-  animation: goAway 0.5s ease-in-out forwards;
-  animation-delay: 3s;
+  font-weight: 700;
+  z-index: 9999;
+  white-space: pre;
+  line-height: 1.5;
+  animation: goAway 1s ease-in-out forwards;
+  animation-delay: 5s;
   &.error {
-    background-color: tomato;
-    color: white;
+    background-color: #fff5f5;
+    color: #e34343;
   }
   &.success {
-    background-color: teal;
-    color: white;
+    background-color: #f2faff;
+    color: #42a2e5;
   }
+}
+
+.error-msg {
+  width: fit-content;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: #fff5f5;
+  color: #e34343;
 }

@@ -3,7 +3,7 @@ extends base-with-nav
 block content
     div.container
         if errorMsg
-        div.error-msg=errorMsg
+            div.error-msg=errorMsg
         h1.title 동영상 업로드
         form(method="POST", enctype="multipart/form-data").user-form.user-form-wide
             video#preview
