@@ -282,7 +282,12 @@ export const see = async (req, res) => {
         path: "author",
       },
     })
-    .populate("comments");
+    .populate({
+      path: "comments",
+      populate: {
+        path: "video",
+      },
+    });
 
   if (!user) {
     return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });

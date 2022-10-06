@@ -43,13 +43,24 @@
     padding: 16px 10px;
     border-radius: 12px;
     border: 1px solid $border;
+    color: $gray;
     .profile__comment-date {
       margin-bottom: 10px;
       font-size: 14px;
-      color: $gray;
+    }
+    .profile__comment-title {
+      margin-bottom: 10px;
+      font-size: 14px;
+      span:last-child {
+        margin-left: 5px;
+        color: $blue;
+      }
+    }
+    .profile__comment-text {
+      font-size: 18px;
     }
   }
-  .profile__comment-link {
+  .profile__comment-icon {
     place-self: center;
     font-size: 16px;
   }

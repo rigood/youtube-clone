@@ -30,7 +30,10 @@ block content
                     a(href=`/videos/${comment.video}`).profile__comment
                         div.profile__comment-col
                             div.profile__comment-date #{comment.createdAt.toLocaleDateString()}
+                            div.profile__comment-title
+                                span 동영상 :
+                                span "#{comment.video.title}"
                             div.profile__comment-text #{comment.text}
-                        div.profile__comment-col.profile__comment-link
+                        div.profile__comment-col.profile__comment-icon
                             i.fas.fa-angle-right
                     
