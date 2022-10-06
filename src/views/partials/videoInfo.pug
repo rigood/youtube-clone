@@ -3,6 +3,10 @@ div.video__info
         each hashtag in video.hashtags
             span.video__hashtag #{hashtag}
     div.video__title #{video.title}
+    div.video__meta       
+        span.video__views 조회수 #{video.meta.views}회 •
+        span.video__date #{new Date(video.createdAt).toLocaleDateString()}
+    hr
     div.video__author-btns
         a(href=`/users/${video.author._id}`).video__author
             div.video__author-avatar
@@ -15,7 +19,4 @@ div.video__info
             if String(video.author._id) === String(loggedInUser._id)
                 a(href=`${video._id}/edit`) 수정
                 a(href=`${video._id}/delete`) 삭제
-    div.video__meta       
-        span.video__views 조회수 #{video.meta.views}회
-        span.video__date #{new Date(video.createdAt).toLocaleDateString()}
     div.video__description #{video.description}
