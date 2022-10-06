@@ -3,7 +3,7 @@ include mixins/mid-video
 
 block content
     div.container
-        h1.profile__title 내 프로필
+        h1.profile__title 기본 정보
         div.profile__user
             div.profiile__user-avatar
                 if(user.avatarUrl.startsWith("http"))
@@ -12,11 +12,25 @@ block content
                     img(src= "/" + user.avatarUrl)
             div.profile__user-info
                 h1.profile__user-name #{user.nickname}
-                div.profile__user-edit
-                    a(href="/users/edit") 프로필 변경 &rarr;
-        h1.profile__title 내 비디오
+                div.profile__user-meta
+                    if(user.socialOnly===true)
+                        span 소셜 로그인
+                    else
+                        span 일반 로그인
+        h1.profile__title 업로드한 동영상 (#{user.videos.length})
         div.profile__videos
             each video in user.videos.reverse()
                 +video(video)
             else
                 span 동영상이 존재하지 않습니다.
+        h1.profile__title 최근 댓글 (#{user.comments.length})
+        ul.profile__comments
+            each comment in user.comments.reverse()
+                li
+                    a(href=`/videos/${comment.video}`).profile__comment
+                        div.profile__comment-col
+                            div.profile__comment-date #{comment.createdAt.toLocaleDateString()}
+                            div.profile__comment-text #{comment.text}
+                        div.profile__comment-col.profile__comment-link
+                            i.fas.fa-angle-right
+                    

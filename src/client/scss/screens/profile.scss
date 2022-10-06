@@ -21,7 +21,7 @@
       margin-bottom: 12px;
       font-size: 16px;
     }
-    .profile__user-edit {
+    .profile__user-meta {
       font-size: 14px;
       color: $gray;
     }
@@ -30,4 +30,27 @@
 
 .profile__videos {
   max-width: 900px;
+  margin-bottom: 50px;
+}
+
+.profile__comments {
+  max-width: 480px;
+  margin-bottom: 50px;
+  .profile__comment {
+    display: grid;
+    grid-template-columns: auto 50px;
+    margin-bottom: 10px;
+    padding: 16px 10px;
+    border-radius: 12px;
+    border: 1px solid $border;
+    .profile__comment-date {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: $gray;
+    }
+  }
+  .profile__comment-link {
+    place-self: center;
+    font-size: 16px;
+  }
 }
