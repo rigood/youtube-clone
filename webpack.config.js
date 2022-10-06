@@ -11,6 +11,7 @@ module.exports = {
     videoPlayer: BASE_JS + "videoPlayer.js",
     recorder: BASE_JS + "recorder.js",
     commentSection: BASE_JS + "commentSection.js",
+    filter: BASE_JS + "filter.js",
   },
   mode: "development",
   watch: true,

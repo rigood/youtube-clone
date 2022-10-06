@@ -9,14 +9,11 @@
     padding: 8px 12px;
     border-radius: 16px;
     border: 1px solid $border;
-    &:hover {
-      background-color: $nav-hover;
-    }
-    &:first-child {
-      border: none;
-      background-color: black;
-      color: white;
-    }
+  }
+  .selected {
+    border: none !important;
+    background-color: black;
+    color: white;
   }
 }
 

@@ -8,9 +8,12 @@ block content
         a(href="/hashtag=아이브") 아이브 (IVE)
         a(href="/hashtag=블랙핑크") 블랙핑크 (BLACKPINK)
         a(href="/hashtag=아이들") (여자)아이들 ((G)I-DLE)
-        a(href="/hashtag=아이브") ITZY (있지)
+        a(href="/hashtag=있지") ITZY (있지)
     section.home__videos
         each video in videos
             +video(video)
         else
             div.noVideo 업로드된 동영상이 없습니다.
+
+block scripts
+    script(src="/static/js/filter.js")
