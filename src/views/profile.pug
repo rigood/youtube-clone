@@ -27,7 +27,7 @@ block content
         ul.profile__comments
             each comment in user.comments.reverse()
                 li
-                    a(href=`/videos/${comment.video}`).profile__comment
+                    a(href=`/videos/${comment.video._id}`).profile__comment
                         div.profile__comment-col
                             div.profile__comment-date #{comment.createdAt.toLocaleDateString()}
                             div.profile__comment-title
