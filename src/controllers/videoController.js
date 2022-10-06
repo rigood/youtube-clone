@@ -245,8 +245,9 @@ export const createComment = async (req, res) => {
 
   return res.status(201).json({
     newCommentId: comment._id,
-    avatarUrl: user.avatarUrl,
-    nickname: user.nickname,
+    authorId: user._id,
+    authorAvatarUrl: user.avatarUrl,
+    authorNickname: user.nickname,
     createdAt: new Date().toLocaleDateString(),
   });
 };

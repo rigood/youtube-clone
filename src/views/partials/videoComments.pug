@@ -19,13 +19,14 @@ div.video__comments
         each comment in video.comments.reverse()
             li(data-id=comment._id).comment__box
                 div.comment__avatar
-                    if(comment.author.avatarUrl.startsWith("http"))
-                        img(src=comment.author.avatarUrl).comment__avatar-img
-                    else
-                        img(src="/"+comment.author.avatarUrl).comment__avatar-img
+                    a(href=`/users/${comment.author.id}`)
+                        if(comment.author.avatarUrl.startsWith("http"))
+                            img(src=comment.author.avatarUrl).comment__avatar-img
+                        else
+                            img(src="/"+comment.author.avatarUrl).comment__avatar-img
                 div.comment__contents
                     div.comment__meta
-                        span.comment__author #{comment.author.nickname}
+                        a(href=`/users/${comment.author.id}`).comment__author #{comment.author.nickname}
                         span.comment__date #{comment.createdAt.toLocaleDateString()}
                     div.comment__input.comment__input--with--btn
                         p.comment__text #{comment.text}

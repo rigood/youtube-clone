@@ -5,21 +5,25 @@ const commentsCount = document.getElementById("commentsCount");
 const cancelBtn = document.getElementById("commentCancel");
 const commentInputBox = document.getElementById("commentInputBox");
 
-const addComment = (text, id, avatarUrl, nickname, createdAt) => {
+const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) => {
   const commentList = document.getElementById("commentList");
 
   const newComment = document.createElement("li");
-  newComment.dataset.id = id;
+  newComment.dataset.id = commentId;
   newComment.className = "comment__box";
 
   const commentAvatar = document.createElement("div");
   commentAvatar.className = "comment__avatar";
 
+  const commentAvatarLink = document.createElement("a");
+  commentAvatarLink.href = `/users/${authorId}`;
+
   const commentAvatarImg = document.createElement("img");
   commentAvatarImg.className = "comment__avatar-img";
   commentAvatarImg.src = avatarUrl.startsWith("http") ? avatarUrl : "/" + avatarUrl;
 
-  commentAvatar.appendChild(commentAvatarImg);
+  commentAvatarLink.appendChild(commentAvatarImg);
+  commentAvatar.appendChild(commentAvatarLink);
 
   const commentContents = document.createElement("div");
   commentContents.className = "comment__contents";
@@ -27,9 +31,10 @@ const addComment = (text, id, avatarUrl, nickname, createdAt) => {
   const commentMeta = document.createElement("div");
   commentMeta.className = "comment__meta";
 
-  const commentAuthor = document.createElement("span");
+  const commentAuthor = document.createElement("a");
   commentAuthor.className = "comment__author";
   commentAuthor.innerText = nickname;
+  commentAuthor.href = `/users/${authorId}`;
 
   const commentDate = document.createElement("span");
   commentDate.className = "comment__date";
@@ -88,8 +93,8 @@ const handleSubmit = async (event) => {
 
   if (response.status === 201) {
     commentInputBox.value = "";
-    const { newCommentId, avatarUrl, nickname, createdAt } = await response.json();
-    addComment(text, newCommentId, avatarUrl, nickname, createdAt);
+    const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
+    addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
   }
 };
 
