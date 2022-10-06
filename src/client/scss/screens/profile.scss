@@ -65,3 +65,22 @@
     font-size: 16px;
   }
 }
+
+.profile__preview {
+  position: relative;
+  width: fit-content;
+  .profile__preview-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+    i {
+      padding: 10px;
+      border-radius: 50%;
+      background-color: $blue;
+      color: white;
+      font-size: 12px;
+    }
+  }
+}

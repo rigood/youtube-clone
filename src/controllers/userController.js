@@ -73,7 +73,7 @@ export const postEdit = async (req, res) => {
   } = req;
 
   if (file && file.size > 5000000) {
-    return res.status(500).render("edit-profile", { pageTitle, errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
+    return res.status(500).render("edit-profile", { pageTitle, errorMsg: "5MB 이하 이미지만 업로드 할 수 있습니다." });
   }
 
   if (email !== oldEmail) {

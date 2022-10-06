@@ -20,10 +20,13 @@ block content
                         span 소셜 로그인
         h1.profile__title 프로필 변경
         form(method="POST", enctype="multipart/form-data").user-form
-            if(loggedInUser.avatarUrl.startsWith("http"))
-                img(src=loggedInUser.avatarUrl, width="100", height="100").preview
-            else
-                img(src= "/" + loggedInUser.avatarUrl, width="100", height="100").preview
+            div.profile__preview
+                if(loggedInUser.avatarUrl.startsWith("http"))
+                    img(src=loggedInUser.avatarUrl, width="100", height="100").preview
+                else
+                    img(src= "/" + loggedInUser.avatarUrl, width="100", height="100").preview
+                label(for="avatar").profile__preview-btn
+                    i.fas.fa-camera
             div.file-size-msg ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
             input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
 
