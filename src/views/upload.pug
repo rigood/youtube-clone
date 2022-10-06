@@ -6,15 +6,18 @@ block content
             div.error-msg=errorMsg
         h1.title 동영상 업로드
         form(method="POST", enctype="multipart/form-data").user-form.user-form-wide
+            label 직접 촬영
             video#preview
             a#actionBtn
                 i.fas.fa-video
                 span 녹화 시작
 
-            label(for="video") 동영상
+            label(for="video") 동영상 업로드
+            video(controls).videoPreview
             input(type="file", name="video", id="video", accept="video/*", required)
 
             label(for="thumb") 썸네일
+            img(src="/uploads/thumbnail.png").thumbnailPreview.preview
             input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)
 
             label(for="title") 제목
@@ -30,3 +33,4 @@ block content
 
 block scripts
     script(src="/static/js/recorder.js")
+    script(src="/static/js/preview.js")    
