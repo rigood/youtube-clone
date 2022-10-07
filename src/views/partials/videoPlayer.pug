@@ -1,6 +1,6 @@
 div#videoContainer(data-id=video._id)
     div#videoContainerOverlay
-    video(src="/" + video.fileUrl, autoplay)
+    video(src=isHeroku ? video.fileUrl : "/" + video.fileUrl, autoplay)
     div#videoControls
         div#timeline-row
             input(type="range", step="1", value="0", min="0")#timeline
