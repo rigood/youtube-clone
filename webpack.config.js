@@ -21,7 +21,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/style.css",
     }),
-    new FaviconsWebpackPlugin("/src/client/img/favicon.ico"),
+    new FaviconsWebpackPlugin("./src/client/img/favicon.ico"),
   ],
   output: {
     filename: "js/[name].js",
