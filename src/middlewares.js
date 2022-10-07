@@ -37,13 +37,19 @@ const s3 = new S3Client({
   },
 });
 
-const uploads = multerS3({
+const isHeroku = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "rigood-youtube",
+  bucket: "rigood-youtube/images",
   acl: "public-read",
 });
 
-const isHeroku = process.env.NODE_ENV === "production";
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "rigood-youtube/videos",
+  acl: "public-read",
+});
 
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
@@ -52,7 +58,7 @@ export const avatarUpload = multer({
 
 export const videoUpload = multer({
   dest: "uploads/videos/",
-  storage: isHeroku ? s3ImageUploader : undefined,
+  storage: isHeroku ? s3VideoUploader : undefined,
 });
 
 export const uploadMiddleware = (req, res, next) => {

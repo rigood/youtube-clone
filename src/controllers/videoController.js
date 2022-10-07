@@ -2,6 +2,8 @@ import User from "../models/User";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("author");
   return res.render("home", { pageTitle: "홈", videos });
@@ -115,7 +117,7 @@ export const postEdit = async (req, res) => {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
-    thumbUrl: thumb[0].path,
+    thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
   });
 
   req.flash("success", "동영상이 수정되었습니다.");
@@ -165,8 +167,6 @@ export const deleteVideo = async (req, res) => {
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "동영상 업로드" });
 };
-
-const isHeroku = process.env.NODE_ENV === "production";
 
 export const postUpload = async (req, res) => {
   const pageTitle = "동영상 업로드";
