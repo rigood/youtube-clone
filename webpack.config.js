@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const BASE_JS = "./src/client/js/";
 
@@ -20,6 +21,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/style.css",
     }),
+    new FaviconsWebpackPlugin("img/favicon.ico"),
   ],
   output: {
     filename: "js/[name].js",
