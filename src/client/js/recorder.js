@@ -91,6 +91,7 @@ const handleStart = () => {
     video.srcObject = null;
     video.src = videoFile;
     video.controls = true;
+    video.loop = true;
     video.play();
   };
   recorder.start();
