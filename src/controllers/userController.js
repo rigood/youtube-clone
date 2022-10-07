@@ -2,6 +2,8 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const getJoin = (req, res) => res.render("join", { pageTitle: "회원가입" });
 
 export const postJoin = async (req, res) => {
@@ -61,8 +63,6 @@ export const logout = (req, res) => {
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "프로필 변경" });
 };
-
-const isHeroku = process.env.NODE_ENV === "production";
 
 export const postEdit = async (req, res) => {
   const pageTitle = "프로필 변경";

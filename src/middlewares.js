@@ -41,14 +41,24 @@ const isHeroku = process.env.NODE_ENV === "production";
 
 const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "rigood-youtube/images",
+  bucket: "rigood-youtube",
   acl: "public-read",
+  key: function (req, file, ab_callback) {
+    const newFileName = Date.now() + "-" + file.originalname;
+    const fullPath = "images/" + newFileName;
+    ab_callback(null, fullPath);
+  },
 });
 
 const s3VideoUploader = multerS3({
   s3: s3,
-  bucket: "rigood-youtube/videos",
+  bucket: "rigood-youtube",
   acl: "public-read",
+  key: function (req, file, ab_callback) {
+    const newFileName = Date.now() + "-" + file.originalname;
+    const fullPath = "videos/" + newFileName;
+    ab_callback(null, fullPath);
+  },
 });
 
 export const avatarUpload = multer({
