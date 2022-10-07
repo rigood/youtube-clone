@@ -24,7 +24,7 @@ export const postJoin = async (req, res) => {
       email,
       password,
       nickname,
-      avatarUrl: "uploads/avatars/default.jpg",
+      avatarUrl: "/static/img/default.jpg",
     });
     req.flash("success", "🎉 회원가입이 완료되었습니다. 🎉");
     return res.redirect("/login");
