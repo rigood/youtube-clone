@@ -99,7 +99,7 @@ export const postEdit = async (req, res) => {
 
   const thumbSize = thumb[0].size;
 
-  if (thumbSize > 5000000) {
+  if (thumb && thumbSize > 5000000) {
     return res.status(500).render("upload", { pageTitle, errorMsg: "5MB 이하 썸네일 이미지만 업로드 할 수 있습니다." });
   }
 

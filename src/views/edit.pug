@@ -11,7 +11,7 @@ block content
 
             label(for="thumb") 썸네일
             img(src=isHeroku ? video.thumbUrl : "/"+video.thumbUrl).thumbnailPreview.preview
-            input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)
+            input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg")
 
             label(for="title") 제목
             input(name="title", id="title", placeholder="동영상의 제목을 입력해주세요." type="text", required, maxLength="100", value=video.title)
