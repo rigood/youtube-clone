@@ -1,4 +1,6 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import { S3Client } from "@aws-sdk/client-s3";
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteTitle = "Youtube";
@@ -26,12 +28,29 @@ export const publicOnlyMiddleware = (req, res, next) => {
   }
 };
 
+const s3 = new S3Client({
+  region: "ap-northeast-2",
+  credentials: {
+    apiVersion: "2022-10-07",
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+  },
+});
+
+const uploads = multerS3({
+  s3: s3,
+  bucket: "rigood-youtube",
+  acl: "public-read",
+});
+
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
+  storage: uploads,
 });
 
 export const videoUpload = multer({
   dest: "uploads/videos/",
+  storage: uploads,
 });
 
 export const uploadMiddleware = (req, res, next) => {
