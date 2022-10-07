@@ -16,8 +16,6 @@ module.exports = {
     login: BASE_JS + "login.js",
     timer: BASE_JS + "timer.js",
   },
-  mode: "development",
-  watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/style.css",
