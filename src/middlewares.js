@@ -43,14 +43,16 @@ const uploads = multerS3({
   acl: "public-read",
 });
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
-  storage: uploads,
+  storage: isHeroku ? s3ImageUploader : undefined,
 });
 
 export const videoUpload = multer({
   dest: "uploads/videos/",
-  storage: uploads,
+  storage: isHeroku ? s3ImageUploader : undefined,
 });
 
 export const uploadMiddleware = (req, res, next) => {

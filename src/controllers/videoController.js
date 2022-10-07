@@ -166,6 +166,8 @@ export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "동영상 업로드" });
 };
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const postUpload = async (req, res) => {
   const pageTitle = "동영상 업로드";
   const {
@@ -192,8 +194,8 @@ export const postUpload = async (req, res) => {
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
-      fileUrl: video[0].path,
-      thumbUrl: thumb[0].path,
+      fileUrl: isHeroku ? video[0].location : video[0].path,
+      thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
       author: _id,
     });
     const user = await User.findById(_id);

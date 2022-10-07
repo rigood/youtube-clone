@@ -62,6 +62,8 @@ export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "프로필 변경" });
 };
 
+const isHeroku = process.env.NODE_ENV === "production";
+
 export const postEdit = async (req, res) => {
   const pageTitle = "프로필 변경";
   const {
@@ -88,7 +90,7 @@ export const postEdit = async (req, res) => {
     {
       email,
       nickname,
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
     },
     { new: true }
   );
