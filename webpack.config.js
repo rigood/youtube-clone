@@ -22,7 +22,7 @@ module.exports = {
       filename: "css/style.css",
     }),
     new FaviconsWebpackPlugin({
-      logo: "/path/src/client/img/favicon.ico",
+      logo: "./src/client/img/favicon.png",
     }),
   ],
   output: {
