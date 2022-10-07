@@ -21,7 +21,7 @@ header
                 i.fas.fa-arrow-right-from-bracket.header__icon
                 span.tooltip 로그아웃
             a(href=`/users/${loggedInUser._id}`)
-                img(src=loggedInUser.avatarUrl).header__avatar
+                img(src=loggedInUser.avatarUrl crossorigin).header__avatar
         else
             a(href="/login").header__login
                 i.fa-regular.fa-user

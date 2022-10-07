@@ -20,10 +20,7 @@ div.video__comments
             li(data-id=comment._id).comment__box
                 div.comment__avatar
                     a(href=`/users/${comment.author.id}`)
-                        if(comment.author.avatarUrl.startsWith("http"))
-                            img(src=comment.author.avatarUrl).comment__avatar-img
-                        else
-                            img(src="/"+comment.author.avatarUrl).comment__avatar-img
+                        img(src=comment.author.avatarUrl).comment__avatar-img
                 div.comment__contents
                     div.comment__meta
                         a(href=`/users/${comment.author.id}`).comment__author #{comment.author.nickname}

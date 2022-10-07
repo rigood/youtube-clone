@@ -98,7 +98,7 @@ const handleStart = () => {
 };
 
 const init = async () => {
-  headerAvatar.style.display = "none";
+  // headerAvatar.style.display = "none";
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {
