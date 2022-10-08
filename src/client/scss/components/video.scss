@@ -1,8 +1,10 @@
 .video-mixin {
   width: 100%;
-  .video-mixin__thumb {
+  .video-mixin__thumb-box {
     width: 100%;
-    object-fit: cover;
+    padding-top: 56.25%;
+    background-size: cover;
+    background-position: center;
   }
   .video-mixin__info {
     width: 100%;
