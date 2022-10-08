@@ -1,8 +1,8 @@
-const videoContainer = document.getElementById("videoContainer");
-const videoContainerOverlay = document.getElementById("videoContainerOverlay");
-const video = document.querySelector("video");
+const videoContainer = document.getElementById("video__container");
+const videoOverlay = document.getElementById("video__overlay");
+const video = document.getElementById("video");
 
-const videoControls = document.getElementById("videoControls");
+const videoControls = document.getElementById("video__controls");
 const timeline = document.getElementById("timeline");
 
 const psBtn = document.getElementById("playPauseBtn");
@@ -17,20 +17,20 @@ const volumeRange = document.getElementById("volumeRange");
 
 const fullScreenBtn = document.getElementById("fullScreenBtn");
 
-const commentInputBox = document.getElementById("commentInputBox");
+const commentInput = document.getElementById("commentInput");
 
 let controlsTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
 const handleOverlay = () => {
-  if (videoContainerOverlay.style.display === "block") {
-    videoContainerOverlay.style.display = "none";
+  if (videoOverlay.style.display === "block") {
+    videoOverlay.style.display = "none";
   }
 };
 
 const handleKeyboard = (event) => {
-  if (event.target === commentInputBox) {
+  if (event.target === commentInput) {
     return;
   }
   // spacebar -> play/pause
@@ -56,7 +56,7 @@ const handleVideoClick = (event) => {
 };
 
 const handleEnded = () => {
-  videoContainerOverlay.style.display = "block";
+  videoOverlay.style.display = "block";
   if (controlsTimeout) {
     clearTimeout(controlsTimeout);
     controlsTimeout = null;

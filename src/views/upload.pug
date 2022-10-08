@@ -5,17 +5,17 @@ block content
         if errorMsg
             div.error-msg=errorMsg
         h1.title 동영상 업로드
-        form(method="POST", enctype="multipart/form-data").user-form.user-form-wide
+        form(method="POST", enctype="multipart/form-data").video-form
             label 직접 촬영
             video#preview
             a#actionBtn
                 i.fas.fa-video
                 span 녹화 시작
 
-            label(for="video") 동영상 업로드
+            label(for="video") 파일 업로드
             video(controls).videoPreview
             input(type="file", name="video", id="video", accept="video/*", required)
-
+            
             label(for="thumb") 썸네일
             img(src="/static/img/thumbnail.png").thumbnailPreview.preview
             input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg", required)

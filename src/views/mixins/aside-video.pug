@@ -1,12 +1,7 @@
 mixin video(video)
     a(href=`/videos/${video.id}`).aside-mixin
-        img.aside-mixin__thumb(src=isHeroku ? video.thumbUrl : "/"+video.thumbUrl)
+        div.aside-mixin__thumb(style=`background-image:url(${video.thumbUrl})`)
         div.aside-mixin__info
-            h1.aside-mixin__title #{video.title.length > 40 ? video.title.slice(0, 40)+" ..." : video.title}
-            div.aside-mixin__meta
-                h2
-                | #{video.author.nickname || user.nickname}
-                h2
-                | 조회수 #{video.meta.views}회
-                |  • 
-                | #{new Date(video.createdAt).toLocaleDateString()}
+            h3.aside-mixin__title #{video.title}
+            span.aside-mixin__author #{video.author.nickname || user.nickname}
+            p.aside-mixin__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString()}

@@ -1,25 +1,52 @@
-.video__hashtags {
-  margin-bottom: 5px;
-  .video__hashtag {
-    margin-right: 5px;
-    color: $blue;
-    font-size: 12px;
+.video__row {
+  display: grid;
+  grid-template-columns: auto max-content;
+  margin-top: 20px;
+  .video__row-info {
+    .video__hashtags {
+      .video__hashtag {
+        display: inline;
+        margin-right: 5px;
+        color: $blue;
+        font-size: 12px;
+      }
+    }
+    .video__title {
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    .video__meta {
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: $gray;
+    }
+    .video__profile {
+      display: flex;
+      align-items: center;
+      .video__avatar {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 50%;
+      }
+      .video__author {
+        font-size: 14px;
+      }
+    }
   }
-}
-
-.video__title {
-  margin-bottom: 15px;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.video__meta {
-  margin-bottom: 15px;
-  font-size: 14px;
-  font-weight: 500;
-  color: $gray;
-  .video__views {
-    margin-right: 5px;
+  .video__row-btns {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    .video__row-btn {
+      margin-left: 30px;
+      i {
+        font-size: 20px;
+      }
+    }
   }
 }
 
@@ -28,34 +55,18 @@ hr {
   opacity: 0.5;
 }
 
-.video__author-btns {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px 0;
-  .video__author {
-    display: grid;
-    grid-template-columns: 64px auto;
-    align-items: center;
-    font-size: 16px;
-    .video__avatar-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-  }
-  .video__btns {
-    a {
-      margin-right: 20px;
-      font-size: 14px;
-    }
-  }
+.video__description {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  white-space: pre;
 }
 
-.video__description {
-  margin-bottom: 40px;
-  padding: 0 5px;
-  white-space: pre;
-  line-height: 1.5;
+@media (max-width: 500px) {
+  .video__row {
+    .video__row-btns {
+      margin-right: 0;
+    }
+  }
 }

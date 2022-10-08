@@ -1,6 +1,7 @@
 .profile__title {
   margin-bottom: 20px;
   font-size: 16px;
+  font-weight: 700;
 }
 
 .profile__user {
@@ -13,6 +14,7 @@
     img {
       width: 80px;
       height: 80px;
+      object-fit: cover;
       border-radius: 50%;
     }
   }
@@ -34,7 +36,7 @@
 }
 
 .profile__comments {
-  max-width: 480px;
+  max-width: 600px;
   margin-bottom: 50px;
   .profile__comment {
     display: grid;
@@ -68,7 +70,15 @@
 
 .profile__preview {
   position: relative;
+  display: grid;
+  grid-template-columns: 100px auto;
   width: fit-content;
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
   .profile__preview-btn {
     position: absolute;
     bottom: 0;

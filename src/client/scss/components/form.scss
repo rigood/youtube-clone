@@ -1,17 +1,32 @@
+.video-form {
+  max-width: 800px;
+}
+.user-form {
+  max-width: 500px;
+}
+
+.video-form,
 .user-form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 480px;
+  video,
+  img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+  }
   label {
     margin-bottom: 10px;
   }
   textarea {
     height: 100px;
     resize: none;
+    font-family: inherit;
   }
   input,
   textarea {
+    width: 100%;
     margin-bottom: 30px;
     padding: 10px;
     border-radius: 4px;
@@ -39,7 +54,7 @@
     }
   }
   hr {
-    margin: 40px 0;
+    margin: 30px 0;
   }
 }
 

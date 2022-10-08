@@ -1,29 +1,25 @@
-const videoContainer = document.getElementById("videoContainer");
+const videoContainer = document.getElementById("video__container");
 const form = document.getElementById("commentForm");
-const deleteBtn = document.querySelectorAll(".comment__delBtn");
+const deleteBtn = document.querySelectorAll(".comment__delete");
 const commentsCount = document.getElementById("commentsCount");
 const cancelBtn = document.getElementById("commentCancel");
-const commentInputBox = document.getElementById("commentInputBox");
+const commentInput = document.getElementById("commentInput");
 
 const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) => {
   const commentList = document.getElementById("commentList");
 
-  const newComment = document.createElement("li");
-  newComment.dataset.id = commentId;
-  newComment.className = "comment__box";
-
-  const commentAvatar = document.createElement("div");
-  commentAvatar.className = "comment__avatar";
+  const commentMixin = document.createElement("li");
+  commentMixin.dataset.id = commentId;
+  commentMixin.className = "comment__mixin";
 
   const commentAvatarLink = document.createElement("a");
   commentAvatarLink.href = `/users/${authorId}`;
 
-  const commentAvatarImg = document.createElement("img");
-  commentAvatarImg.className = "comment__avatar-img";
-  commentAvatarImg.src = avatarUrl.startsWith("http") ? avatarUrl : "/" + avatarUrl;
+  const commentAvatar = document.createElement("img");
+  commentAvatar.className = "comment__avatar";
+  commentAvatar.src = avatarUrl;
 
-  commentAvatarLink.appendChild(commentAvatarImg);
-  commentAvatar.appendChild(commentAvatarLink);
+  commentAvatarLink.appendChild(commentAvatar);
 
   const commentContents = document.createElement("div");
   commentContents.className = "comment__contents";
@@ -43,31 +39,56 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
   commentMeta.appendChild(commentAuthor);
   commentMeta.appendChild(commentDate);
 
-  const commentInput = document.createElement("div");
-  commentInput.classList.add("comment__input", "comment__input--with--btn");
-
   const commentText = document.createElement("p");
+  commentText.className = "comment__text";
   commentText.innerText = text;
 
-  const commentDelBtn = document.createElement("button");
-  commentDelBtn.className = "comment__delBtn";
-  commentDelBtn.addEventListener("click", handleDelete);
+  const commentBtns = document.createElement("div");
+  commentBtns.className = "comment__btns";
 
-  const i = document.createElement("i");
-  i.classList.add("fas", "fa-trash-can");
+  const commentLike = document.createElement("button");
+  commentLike.classList.add("comment__like", "tooltip-target");
+  const iLike = document.createElement("i");
+  iLike.classList.add("fas", "fa-thumbs-up");
+  const tooltipLike = document.createElement("span");
+  tooltipLike.className = "tooltip";
+  tooltipLike.innerText = "좋아요";
+  commentLike.appendChild(iLike);
+  commentLike.appendChild(tooltipLike);
 
-  commentDelBtn.appendChild(i);
+  const commentDislike = document.createElement("button");
+  commentDislike.classList.add("comment__dislike", "tooltip-target");
+  const iDislike = document.createElement("i");
+  iDislike.classList.add("fas", "fa-thumbs-down");
+  const tooltipDislike = document.createElement("span");
+  tooltipDislike.className = "tooltip";
+  tooltipDislike.innerText = "싫어요";
+  commentDislike.appendChild(iDislike);
+  commentDislike.appendChild(tooltipDislike);
 
-  commentInput.appendChild(commentText);
-  commentInput.appendChild(commentDelBtn);
+  const commentDelete = document.createElement("button");
+  commentDelete.classList.add("comment__delete", "tooltip-target");
+  commentDelete.addEventListener("click", handleDelete);
+  const iDelete = document.createElement("i");
+  iDelete.classList.add("fas", "fa-trash-can");
+  const tooltipDelete = document.createElement("span");
+  tooltipDelete.className = "tooltip";
+  tooltipDelete.innerText = "삭제";
+  commentDelete.appendChild(iDelete);
+  commentDelete.appendChild(tooltipDelete);
+
+  commentBtns.appendChild(commentLike);
+  commentBtns.appendChild(commentDislike);
+  commentBtns.appendChild(commentDelete);
 
   commentContents.appendChild(commentMeta);
-  commentContents.appendChild(commentInput);
+  commentContents.appendChild(commentText);
+  commentContents.appendChild(commentBtns);
 
-  newComment.appendChild(commentAvatar);
-  newComment.appendChild(commentContents);
+  commentMixin.appendChild(commentAvatarLink);
+  commentMixin.appendChild(commentContents);
 
-  commentList.prepend(newComment);
+  commentList.prepend(commentMixin);
 
   const countValue = Number(commentsCount.innerText) + 1;
   commentsCount.innerText = countValue;
@@ -76,7 +97,7 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  const text = commentInputBox.value;
+  const text = commentInput.value;
   const videoId = videoContainer.dataset.id;
 
   if (text === "") {
@@ -92,28 +113,32 @@ const handleSubmit = async (event) => {
   });
 
   if (response.status === 201) {
-    commentInputBox.value = "";
+    commentInput.value = "";
     const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
     addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
   }
 };
-
-const removeComment = (id) => {};
 
 const handleDelete = async (event) => {
   event.preventDefault();
 
   const videoId = videoContainer.dataset.id;
 
-  const commentTarget = event.target.parentElement.parentElement.parentElement.parentElement;
-  const commentId = commentTarget.dataset.id;
+  let li;
+  if (event.target.tagName === "I") {
+    li = event.target.parentElement.parentElement.parentElement.parentElement;
+  } else if (event.target.tagName === "BUTTON") {
+    li = event.target.parentElement.parentElement.parentElement;
+  }
+
+  const commentId = li.dataset.id;
 
   const response = await fetch(`/api/videos/${videoId}/comments/${commentId}`, {
     method: "DELETE",
   });
 
   if (response.status === 200) {
-    commentTarget.remove();
+    li.remove();
     const countValue = Number(commentsCount.innerText) - 1;
     commentsCount.innerText = countValue;
   }
@@ -121,7 +146,7 @@ const handleDelete = async (event) => {
 
 const handleCancel = (event) => {
   event.preventDefault();
-  commentInputBox.value = "";
+  commentInput.value = "";
 };
 
 if (form) {

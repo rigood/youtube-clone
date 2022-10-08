@@ -1,22 +1,32 @@
-div.video__info
-    div.video__hashtags
-        each hashtag in video.hashtags
-            span.video__hashtag #{hashtag}
-    div.video__title #{video.title}
-    div.video__meta       
-        span.video__views 조회수 #{video.meta.views}회 •
-        span.video__date #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
-    hr
-    div.video__author-btns
-        a(href=`/users/${video.author._id}`).video__author
-            div.video__author-avatar
-                if(video.author.avatarUrl.startsWith("http"))
-                    img(src=video.author.avatarUrl).video__avatar-img
-                else
-                    img(src="/"+video.author.avatarUrl).video__avatar-img
-            div.video__author-name #{video.author.nickname}
-        div.video__btns
-            if String(video.author._id) === String(loggedInUser._id)
-                a(href=`${video._id}/edit`) 수정
-                a(href=`${video._id}/delete`) 삭제
-    div.video__description #{video.description}
+div.video__row
+    div.video__row-info
+        ul.video__hashtags
+            each hashtag in video.hashtags
+                li.video__hashtag #{hashtag}
+        h2.video__title #{video.title}
+        p.video__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+    div.video__row-btns
+        a(href="/").video__row-btn.tooltip-target
+            i.fas.fa-thumbs-up
+            span.tooltip 좋아요
+        a(href="/").video__row-btn.tooltip-target
+                i.fas.fa-share
+                span.tooltip 공유
+        if String(video.author._id) === String(loggedInUser._id)
+            a(href=`${video._id}/edit`).video__row-btn.tooltip-target
+                i.fas.fa-pen
+                span.tooltip 수정
+            a(href=`${video._id}/delete`).video__row-btn.tooltip-target
+                i.fas.fa-trash
+                span.tooltip 삭제
+hr
+
+div.video__row
+    div.video__row-info
+        a(href=`/users/${video.author._id}`).video__profile
+            img(src=video.author.avatarUrl).video__avatar
+            span.video__author #{video.author.nickname}
+    div.video__row-btns
+        button.video__row-btn 구독
+
+p.video__description #{video.description}

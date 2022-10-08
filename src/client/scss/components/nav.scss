@@ -1,4 +1,4 @@
-.nav__ul {
+.nav__list {
   width: 100%;
   padding-top: 12px;
   li {
@@ -24,21 +24,24 @@
     border-top: 1px solid $border;
     opacity: 0.3;
   }
+}
+
+.nav__info {
+  padding: 12px 24px;
+  font-size: 12px;
   p {
-    padding: 12px 24px;
-    font-size: 12px;
-    line-height: 1.2;
-    a {
-      color: $blue;
-      i {
-        margin-right: 5px;
-      }
+    margin: 10px 0;
+  }
+  a {
+    color: $blue;
+    i {
+      margin-right: 5px;
     }
   }
 }
 
 @media (max-width: 1300px) {
-  .nav__ul {
+  .nav__list {
     li {
       flex-direction: column;
       justify-content: center;
@@ -52,8 +55,8 @@
         white-space: nowrap;
       }
     }
-    p {
-      display: none;
-    }
+  }
+  .nav__info {
+    display: none;
   }
 }

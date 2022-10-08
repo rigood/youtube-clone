@@ -1,32 +1,35 @@
-div.video__comments
-    div.comment__count
-        span 댓글 
-        span#commentsCount #{video.comments.length}
-        span 개
+div.comment__count
+    span 댓글 
+    strong#commentsCount #{video.comments.length}
+    span 개
+div.comment__mixin
     if loggedIn
-        div.comment__box
-            div.comment__avatar
-                if(loggedInUser.avatarUrl.startsWith("http"))
-                    img(src=loggedInUser.avatarUrl).comment__avatar-img
-                else
-                    img(src="/"+loggedInUser.avatarUrl).comment__avatar-img
-            form#commentForm.comment__contents
-                input#commentInputBox.comment__input(placeholder="댓글 추가...")
+        img(src=loggedInUser.avatarUrl).comment__avatar
+    else
+        img(src="/static/img/default.jpg").comment__avatar
+    form#commentForm.comment__contents
+        input(placeholder="댓글 추가...", required)#commentInput
+        div.comment__form-btns
+            button(type="button")#commentCancel 취소
+            button(type="submit") 댓글
+ul#commentList
+    each comment in video.comments.reverse()
+        li(data-id=comment._id).comment__mixin
+            a(href=`/users/${comment.author.id}`)
+                img(src=comment.author.avatarUrl).comment__avatar
+            div.comment__contents
+                div.comment__meta
+                    a(href=`/users/${comment.author.id}`).comment__author #{comment.author.nickname}
+                    span.comment__date #{comment.createdAt.toLocaleDateString()}
+                p.comment__text #{comment.text}
                 div.comment__btns
-                    button(type="button")#commentCancel 취소
-                    button(type="submit") 댓글
-    ul#commentList
-        each comment in video.comments.reverse()
-            li(data-id=comment._id).comment__box
-                div.comment__avatar
-                    a(href=`/users/${comment.author.id}`)
-                        img(src=comment.author.avatarUrl).comment__avatar-img
-                div.comment__contents
-                    div.comment__meta
-                        a(href=`/users/${comment.author.id}`).comment__author #{comment.author.nickname}
-                        span.comment__date #{comment.createdAt.toLocaleDateString()}
-                    div.comment__input.comment__input--with--btn
-                        p.comment__text #{comment.text}
-                        if String(comment.author._id) === String(loggedInUser._id)
-                            button.comment__delBtn
-                                i.fas.fa-trash-can
+                    button.comment__like.tooltip-target
+                        i.fas.fa-thumbs-up
+                        span.tooltip 좋아요
+                    button.comment__like.tooltip-target
+                        i.fas.fa-thumbs-down
+                        span.tooltip 싫어요
+                    if String(comment.author._id) === String(loggedInUser._id)
+                        button.comment__delete.tooltip-target
+                            i.fas.fa-trash-can
+                            span.tooltip 삭제

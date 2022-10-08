@@ -1,23 +1,21 @@
-.base__main {
+.main {
   display: grid;
   grid-template-columns: 240px auto;
   gap: 20px;
 }
 
 @media (max-width: 1300px) {
-  .base__main {
+  .main {
     grid-template-columns: 72px auto;
     gap: 10px;
   }
 }
 
 @media (max-width: 500px) {
-  .base__main {
-    grid-template-columns: 0 100%;
-    gap: 0;
-  }
-  // nav.scss
-  .nav__ul {
-    display: none;
+  .main {
+    grid-template-columns: 100%;
+    .nav {
+      display: none;
+    }
   }
 }

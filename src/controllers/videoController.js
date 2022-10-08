@@ -115,8 +115,13 @@ export const postEdit = async (req, res) => {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
-    thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
   });
+
+  if (thumb) {
+    await Video.findByIdAndUpdate(id, {
+      thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
+    });
+  }
 
   req.flash("success", "동영상이 수정되었습니다.");
   return res.redirect(`/videos/${id}`);

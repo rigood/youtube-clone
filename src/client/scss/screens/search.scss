@@ -1,4 +1,17 @@
 .search__videos {
   max-width: 1000px;
   margin: auto;
+  .search__title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    strong {
+      margin-right: 10px;
+    }
+  }
+  .search__results {
+    text-align: center;
+    strong {
+      font-weight: 700;
+    }
+  }
 }

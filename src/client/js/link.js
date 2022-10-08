@@ -1,4 +1,4 @@
-const avatar = document.querySelectorAll(".video-mixin__img");
+const avatar = document.querySelectorAll(".video-mixin__avatar");
 
 const handleClick = (event) => {
   event.preventDefault();

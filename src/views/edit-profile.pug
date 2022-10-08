@@ -7,10 +7,7 @@ block content
         h1.profile__title 현재 프로필
         div.profile__user
             div.profiile__user-avatar
-                if(loggedInUser.avatarUrl.startsWith("http"))
-                    img(src=loggedInUser.avatarUrl)
-                else
-                    img(src= "/" + loggedInUser.avatarUrl)
+                img(src=loggedInUser.avatarUrl)
             div.profile__user-info
                 h1.profile__user-name #{loggedInUser.nickname}
                 div.profile__user-meta
@@ -21,12 +18,10 @@ block content
         h1.profile__title 프로필 변경
         form(method="POST", enctype="multipart/form-data").user-form
             div.profile__preview
-                if(loggedInUser.avatarUrl.startsWith("http"))
-                    img(src=loggedInUser.avatarUrl).avatarPreview.preview
-                else
-                    img(src= "/" + loggedInUser.avatarUrl).avatarPreview.preview
+                img(src=loggedInUser.avatarUrl).avatarPreview.preview
                 label(for="avatar").profile__preview-btn
                     i.fas.fa-camera
+                    
             div.file-size-msg ※ 5MB 이하 .png, .jpg, .jpeg 파일만 업로드 가능합니다.
             input(type="file", name="avatar", id="avatar", accept=".png, .jpg, .jepg")
 

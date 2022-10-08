@@ -1,12 +1,10 @@
 mixin video(video)
     a(href=`/videos/${video.id}`).mid-mixin
-        img.mid-mixin__thumb(src=isHeroku ? video.thumbUrl : "/"+video.thumbUrl)
+        div.mid-mixin__thumb(style=`background-image:url(${video.thumbUrl})`)
         div.mid-mixin__info
-            h1.mid-mixin__title #{video.title}
-            div.mid-mixin__meta
-                h2
-                | #{video.author.nickname || user.nickname}
-                h2
-                | 조회수 #{video.meta.views}회
-                |  • 
-                | #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+            h2.mid-mixin__title #{video.title}
+            p.mid-mixin__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+            div.mid-mixin__author
+                img(src=video.author.thumbUrl).mid-mixin__avatar
+                span #{video.author.nickname || user.nickname}
+            p.mid-mixin__description #{video.description}

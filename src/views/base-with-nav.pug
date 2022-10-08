@@ -16,10 +16,10 @@ html(lang="ko")
         if messages.success
             +message("success", messages.success)
         include partials/header
-        main.base__main
-            nav.base__left
+        main.main
+            nav.nav
                 include partials/nav
-            section.base__right
+            section.section
                 block content
     script(src="/static/js/main.js") 
     script(src="https://kit.fontawesome.com/13650dff62.js")

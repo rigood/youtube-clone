@@ -3,12 +3,14 @@ include mixins/aside-video
 
 block content
     div.watch__container
-        section.watch__left
-            include partials/videoPlayer
-            div.watch__left-below
+        section.watch__video
+            div.watch__video-player
+                include partials/videoPlayer
+            div.watch__video-info
                 include partials/videoInfo
+            div.watch__video-comments
                 include partials/videoComments
-        nav.watch__right
+        nav.watch__nav
             each video in asideVideos
                 +video(video)
 

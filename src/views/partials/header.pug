@@ -1,29 +1,36 @@
 header
     div.header__left
-        a(href="/")
-            i.fas.fa-bars.header__menu
-        a(href="/")
-            img(src="/static/img/logo.png").header__logo
+        a(href="/").header__menu
+            i.fas.fa-bars
+        h1.header__logo
+            a(href="/")
+                img(src="/static/img/logo.png")
     div.header__center
         form(action="/search").header__search-form
             input.header__search-input(type="text", name="keyword",placeholder="검색", required)
             button.header__search-button(type="submit")
                 i.fas.fa-magnifying-glass
     div.header__right
-        if loggedIn
-            a(href="/videos/upload")
-                i.fas.fa-video.header__icon
-                span.tooltip 업로드
-            a(href=`/users/edit`)
-                i.fas.fa-gear.header__icon
-                span.tooltip 정보수정
-            a(href="/users/logout")
-                i.fas.fa-arrow-right-from-bracket.header__icon
-                span.tooltip 로그아웃
-            a(href=`/users/${loggedInUser._id}`)
-                img(src=loggedInUser.avatarUrl).header__avatar
-        else
-            a(href="/login").header__login
-                i.fa-regular.fa-user
-                span 로그인
+        ul
+            if loggedIn
+                li.header__icon
+                    a(href="/videos/upload").tooltip-target
+                        i.fas.fa-video
+                        span.tooltip 업로드
+                li.header__icon
+                    a(href=`/users/edit`).tooltip-target
+                        i.fas.fa-gear
+                        span.tooltip 정보수정
+                li.header__icon
+                    a(href="/users/logout").tooltip-target
+                        i.fas.fa-arrow-right-from-bracket
+                        span.tooltip 로그아웃
+                li.header__avatar
+                    a(href=`/users/${loggedInUser._id}`)
+                        img(src=loggedInUser.avatarUrl)
+            else
+                li.header__login
+                    a(href="/login")
+                        i.fa-regular.fa-user
+                        span 로그인
 

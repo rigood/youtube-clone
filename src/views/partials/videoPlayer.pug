@@ -1,20 +1,20 @@
-div#videoContainer(data-id=video._id)
-    div#videoContainerOverlay
-    video(src=isHeroku ? video.fileUrl : "/" + video.fileUrl, autoplay)
-    div#videoControls
-        div#timeline-row
+div#video__container(data-id=video._id)
+    div#video__overlay
+    video(src=video.fileUrl, autoplay)#video
+    div#video__controls
+        div#video__timeline
             input(type="range", step="1", value="0", min="0")#timeline
-        div#controller-row
-            div#controller-left
-                span#playPauseBtn.c-btn
+        div#video__controller
+            div#video__controller-left
+                button#playPauseBtn
                     i.fas.fa-pause
                 span#timeText
                     span#currentTime 00:00 
                     span / 
                     span#totalTime 00:00
-                span#volumeBtn.c-btn
+                button#volumeBtn
                     i.fas.fa-volume-up
                 input#volumeRange(type="range", step="0.1", value="0.5", min="0" max="1")
-            div#controller-right
-                span#fullScreenBtn.c-btn
+            div#video__controller-right
+                button#fullScreenBtn
                     i.fas.fa-expand

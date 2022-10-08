@@ -5,12 +5,12 @@ block content
         if errorMsg
             div.error-msg=errorMsg
         h1.title 동영상 수정
-        form(method="POST", enctype="multipart/form-data").user-form
-            video(src=isHeroku ? video.fileUrl : "/"+video.fileUrl, controls)
+        form(method="POST", enctype="multipart/form-data").video-form
+            video(src=video.fileUrl, controls, autoplay)
             hr
 
             label(for="thumb") 썸네일
-            img(src=isHeroku ? video.thumbUrl : "/"+video.thumbUrl).thumbnailPreview.preview
+            img(src=video.thumbUrl).thumbnailPreview.preview
             input(type="file", name="thumb", id="thumb", accept=".png, .jpg, .jepg")
 
             label(for="title") 제목

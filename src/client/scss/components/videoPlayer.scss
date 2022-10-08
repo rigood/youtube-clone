@@ -1,7 +1,7 @@
-#videoContainer {
+#video__container {
   position: relative;
   width: 100%;
-  #videoContainerOverlay {
+  #video__overlay {
     display: none;
     position: absolute;
     top: 0;
@@ -10,67 +10,64 @@
     left: 0;
     background: black;
   }
-  video {
+  #video {
+    display: block;
     width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
   }
-  #videoControls {
+  #video__controls {
     display: flex;
     flex-direction: column;
     position: absolute;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-    margin-inline: auto;
+    bottom: 10px;
+    justify-content: center;
     width: 100%;
     padding: 0 10px;
-    padding-bottom: 10px;
     z-index: 1;
     opacity: 0;
     transition: all 0.5s ease-in-out;
-    #timeline-row {
+    #video__timeline {
       display: flex;
       align-items: center;
       width: 100%;
-      #timeline {
+      input {
         width: 100%;
       }
     }
-    #controller-row {
+    #video__controller {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
       padding: 0 10px;
       color: white;
-      .c-btn {
+      button {
         width: 36px;
         height: 36px;
+        color: white;
         text-align: center;
-        cursor: pointer;
       }
-      #controller-left {
+      #video__controller-left {
         display: flex;
         align-items: center;
         #playPauseBtn {
           margin-right: 6px;
-          padding: 6px;
-          font-size: 24px;
+          font-size: 20px;
         }
         #timeText {
           margin-right: 6px;
         }
         #volumeBtn {
           margin-right: 6px;
-          padding: 10px;
           font-size: 16px;
         }
         #volumeRange {
           width: 70px;
         }
       }
-      #controller-right {
+      #video__controller-right {
         #fullScreenBtn {
-          padding: 8px;
           font-size: 20px;
         }
       }

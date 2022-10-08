@@ -11,7 +11,7 @@
 @import "./components/videoPlayer";
 @import "./components/videoInfo";
 @import "./components/videoComments";
-@import "./components/user-form";
+@import "./components/form";
 
 // Screens
 @import "./screens/base-with-nav";
@@ -35,6 +35,7 @@
 body {
   margin-top: 60px;
   font-family: "Roboto", sans-serif;
+  line-height: 1.5;
 }
 
 a {
@@ -57,11 +58,8 @@ input {
   }
 }
 
-textarea {
-  font-family: inherit;
-}
-
-.container {
+.container,
+.container-center {
   width: 100%;
   padding: 50px 4vw;
 }
@@ -70,16 +68,38 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   padding-top: 100px;
 }
 
 .title {
-  margin-bottom: 30px;
-  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 700;
 }
 
-.noVideo {
-  text-align: center;
+.tooltip-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: -50px;
+    width: max-content;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: $tooltip;
+    color: white;
+    font-size: 12px;
+    z-index: 1;
+  }
+  &:hover .tooltip {
+    display: block;
+  }
+  &:hover .fas {
+    color: $blue;
+  }
 }
 
 @keyframes goAway {
@@ -106,7 +126,6 @@ textarea {
   font-weight: 700;
   z-index: 9999;
   white-space: pre;
-  line-height: 1.5;
   animation: goAway 1s ease-in-out forwards;
   animation-delay: 3s;
   &.error {
