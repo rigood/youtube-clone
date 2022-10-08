@@ -1,14 +1,14 @@
 header
     div.header__left
         a(href="/")
-            i.fas.fa-bars.header__icon.header__menu
+            i.fas.fa-bars.header__menu
         a(href="/")
             img(src="/static/img/logo.png").header__logo
     div.header__center
-        form(action="/search")#header__search-form
-            input#header__search-input(type="text", name="keyword",placeholder="검색", required)
-            button#header__search-button(type="submit")
-                i.fas.fa-magnifying-glass.header__icon
+        form(action="/search").header__search-form
+            input.header__search-input(type="text", name="keyword",placeholder="검색", required)
+            button.header__search-button(type="submit")
+                i.fas.fa-magnifying-glass
     div.header__right
         if loggedIn
             a(href="/videos/upload")
