@@ -37,7 +37,7 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
 
   const commentDate = document.createElement("span");
   commentDate.className = "comment__date";
-  commentDate.innerText = moment(new Date(createdAt)).fromNow();
+  commentDate.innerText = moment.utc(new Date(createdAt)).fromNow();
 
   commentMeta.appendChild(commentAuthor);
   commentMeta.appendChild(commentDate);
