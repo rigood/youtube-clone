@@ -4,4 +4,4 @@ mixin video(video)
         div.aside-mixin__info
             h3.aside-mixin__title #{video.title}
             span.aside-mixin__author #{video.author.nickname || user.nickname}
-            p.aside-mixin__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString()}
+            p.aside-mixin__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString().replace("/", "-")}
