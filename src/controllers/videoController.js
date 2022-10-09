@@ -417,7 +417,7 @@ export const createComment = async (req, res) => {
     authorId: user._id,
     authorAvatarUrl: user.avatarUrl,
     authorNickname: user.nickname,
-    createdAt: new Date().toLocaleDateString(),
+    createdAt: new Date(),
   });
 };
 
