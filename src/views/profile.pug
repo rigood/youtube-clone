@@ -14,13 +14,13 @@ block content
                         span 소셜 로그인
                     else
                         span 일반 로그인
-        h1.profile__title 업로드한 동영상 (#{user.videos.length})
+        h1.profile__title My 동영상 (#{user.videos.length})
         div.profile__videos
             each video in user.videos.reverse()
                 +video(video)
             else
                 span 동영상이 존재하지 않습니다.
-        h1.profile__title 최근 댓글 (#{user.comments.length})
+        h1.profile__title My 댓글 (#{user.comments.length})
         ul.profile__comments
             each comment in user.comments.reverse()
                 li
