@@ -20,7 +20,7 @@ ul#commentList
             div.comment__contents
                 div.comment__meta
                     a(href=`/users/${comment.author.id}`).comment__author #{comment.author.nickname}
-                    span.comment__date #{moment(comment.createdAt).fromNow()}
+                    span.comment__date #{comment.createdAt.toLocaleDateString('ko-KR')}
                 p.comment__text #{comment.text}
                 div.comment__btns
                     button.comment__like.tooltip-target
