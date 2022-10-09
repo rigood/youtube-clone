@@ -1,5 +1,7 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Like from "../models/Like";
+import Subscribe from "../models/Subscribe";
 import Comment from "../models/Comment";
 
 const isHeroku = process.env.NODE_ENV === "production";
@@ -228,6 +230,138 @@ export const registerView = async (req, res) => {
   return res.sendStatus(200);
 };
 
+export const initLike = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  const like = await Like.findOne({ $and: [{ video: id }, { user: _id }] });
+
+  return res.status(200).json({
+    result: like ? true : false,
+  });
+};
+
+export const toggleLike = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+  const user = await User.findById(_id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  let like = await Like.findOne({ $and: [{ video: id }, { user: _id }] });
+
+  if (!like) {
+    // create
+    like = await Like.create({
+      user: _id,
+      video: id,
+    });
+    // synchronize
+    video.likes.push(like._id);
+    await video.save();
+    user.likes.push(like._id);
+    await user.save();
+  } else {
+    // delete
+    await Like.findOneAndDelete({ $and: [{ video: id }, { user: _id }] });
+    // synchronize
+    video.likes.splice(video.likes.indexOf(like._id), 1);
+    await video.save();
+    user.likes.splice(user.likes.indexOf(like._id), 1);
+    await user.save();
+    like = null;
+  }
+
+  const count = await Like.countDocuments();
+
+  return res.status(200).json({
+    result: like ? true : false,
+    count,
+  });
+};
+
+export const initSubscribe = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  const subscribe = await Subscribe.findOne({ $and: [{ video: id }, { user: _id }] });
+
+  return res.status(200).json({
+    result: subscribe ? true : false,
+  });
+};
+
+export const toggleSubscribe = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    params: { id },
+  } = req;
+
+  const video = await Video.findById(id);
+  const user = await User.findById(_id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  let subscribe = await Subscribe.findOne({ $and: [{ video: id }, { user: _id }] });
+
+  if (!subscribe) {
+    // create
+    subscribe = await Subscribe.create({
+      user: _id,
+      video: id,
+    });
+    // synchronize
+    video.subscribes.push(subscribe._id);
+    await video.save();
+    user.subscribes.push(subscribe._id);
+    await user.save();
+  } else {
+    // delete
+    await Subscribe.findOneAndDelete({ $and: [{ video: id }, { user: _id }] });
+    // synchronize
+    video.subscribes.splice(video.subscribes.indexOf(subscribe._id), 1);
+    await video.save();
+    user.subscribes.splice(user.subscribes.indexOf(subscribe._id), 1);
+    await user.save();
+    subscribe = null;
+  }
+
+  const count = await Subscribe.countDocuments();
+
+  return res.status(200).json({
+    result: subscribe ? true : false,
+    count,
+  });
+};
+
 export const createComment = async (req, res) => {
   // if (req.session.user === undefined) {
   //   return res.status(401).redirect("/login");
@@ -245,6 +379,10 @@ export const createComment = async (req, res) => {
   const user = await User.findById(_id);
 
   if (!video) {
+    return res.sendStatus(404);
+  }
+
+  if (!user) {
     return res.sendStatus(404);
   }
 

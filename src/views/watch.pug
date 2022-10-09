@@ -16,5 +16,9 @@ block content
 
 block scripts
     script(src="/static/js/videoPlayer.js")
-    script(src="/static/js/videoInfo.js")
+    script(src="/static/js/shareBtn.js")
     script(src="/static/js/commentSection.js")
+    if loggedIn
+        script(src="/static/js/actionBtns.js")
+    else
+        script(src="/static/js/alert.js")
