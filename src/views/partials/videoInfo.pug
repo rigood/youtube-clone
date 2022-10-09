@@ -6,10 +6,10 @@ div.video__row
         h2.video__title #{video.title}
         p.video__meta 조회수 #{video.meta.views}회 • #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
     div.video__row-btns
-        a(href="/").video__row-btn.tooltip-target
-            i.fas.fa-thumbs-up
+        button(type="button").video__row-btn.tooltip-target
+            i.fas.fa-heart
             span.tooltip 좋아요
-        a(href="/").video__row-btn.tooltip-target
+        button(type="button").video__row-btn.tooltip-target
                 i.fas.fa-share
                 span.tooltip 공유
         if String(video.author._id) === String(loggedInUser._id)
@@ -27,6 +27,6 @@ div.video__row
             img(src=video.author.avatarUrl).video__avatar
             span.video__author #{video.author.nickname}
     div.video__row-btns
-        button.video__row-btn 구독
+        button(type="button").video__row-btn#subscribeBtn 구독
 
 p.video__description #{video.description}

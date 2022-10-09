@@ -15,6 +15,7 @@ module.exports = {
     link: BASE_JS + "link.js",
     login: BASE_JS + "login.js",
     timer: BASE_JS + "timer.js",
+    videoInfo: BASE_JS + "videoInfo.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

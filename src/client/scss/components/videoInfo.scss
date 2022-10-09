@@ -54,6 +54,13 @@
   }
 }
 
+#subscribeBtn {
+  padding: 8px 16px;
+  background-color: $red;
+  font-size: 14px;
+  color: white;
+}
+
 hr {
   border-top: 1px solid $border;
   opacity: 0.5;
