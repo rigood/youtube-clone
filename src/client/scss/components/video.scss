@@ -6,7 +6,7 @@
   }
   .video-mixin__info {
     width: 100%;
-    height: 120px;
+    height: 100px;
     padding-top: 12px;
     display: grid;
     grid-template-columns: 48px auto;
@@ -23,7 +23,6 @@
         overflow: hidden;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
-        margin-bottom: 2px;
         font-size: 16px;
         font-weight: 500;
       }
