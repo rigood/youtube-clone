@@ -329,14 +329,14 @@ export const like = async (req, res) => {
 
   let videoList = [];
   const likeList = user.likes;
-  if (likeList) {
+  if (likeList !== null) {
     likeList.map((like) => {
       videoList.push(like.video);
     });
   }
 
   let authorList = [];
-  if (authorList) {
+  if (authorList !== null) {
     const subscribeList = user.subscribes;
     subscribeList.map((subscribe) => {
       authorList.push(subscribe.author);
