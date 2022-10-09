@@ -99,6 +99,7 @@ const handleSubmit = async (event) => {
 
   const text = commentInput.value;
   const videoId = videoContainer.dataset.id;
+  console.log("💚💚💚💚💚text, videoId", text, videoId);
 
   if (text === "") {
     return;
@@ -106,11 +107,14 @@ const handleSubmit = async (event) => {
 
   const response = await fetch(`/api/videos/${videoId}/comment`, {
     method: "POST",
+    redirect: "follow",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ text }),
   });
+
+  console.log("💚💚💚💚💚response", response);
 
   if (response.status === 201) {
     commentInput.value = "";
