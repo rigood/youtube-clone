@@ -326,16 +326,22 @@ export const like = async (req, res) => {
   if (!user) {
     return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });
   }
-  const likeList = user.likes;
+
   let videoList = [];
-  likeList.map((like) => {
-    videoList.push(like.video);
-  });
-  const subscribeList = user.subscribes;
+  const likeList = user.likes;
+  if (likeList) {
+    likeList.map((like) => {
+      videoList.push(like.video);
+    });
+  }
+
   let authorList = [];
-  subscribeList.map((subscribe) => {
-    authorList.push(subscribe.author);
-  });
+  if (authorList) {
+    const subscribeList = user.subscribes;
+    subscribeList.map((subscribe) => {
+      authorList.push(subscribe.author);
+    });
+  }
 
   return res.render("like", { pageTitle: user.nickname, user, videoList, authorList });
 };
