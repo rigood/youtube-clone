@@ -12,6 +12,10 @@
       }
     }
     .video__title {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
       margin-bottom: 10px;
       font-size: 20px;
       font-weight: 500;
