@@ -1,3 +1,6 @@
+import moment from "moment";
+import "moment/locale/ko";
+
 const videoContainer = document.getElementById("video__container");
 const form = document.getElementById("commentForm");
 const deleteBtn = document.querySelectorAll(".comment__delete");
@@ -34,7 +37,7 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
 
   const commentDate = document.createElement("span");
   commentDate.className = "comment__date";
-  commentDate.innerText = createdAt;
+  commentDate.innerText = moment(createdAt).fromNow();
 
   commentMeta.appendChild(commentAuthor);
   commentMeta.appendChild(commentDate);
