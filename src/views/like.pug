@@ -5,7 +5,7 @@ block content
     div.container
         h1.profile__title 기본 정보
         div.profile__user
-            div.profiile__user-avatar
+            div.profile__user-avatar
                 img(src=user.avatarUrl)
             div.profile__user-info
                 h1.profile__user-name #{user.nickname}
@@ -16,8 +16,17 @@ block content
                         span 일반 로그인
         h1.profile__title 좋아요 표시한 동영상 (#{user.likes.length})
         div.profile__videos
-            each video in videoList
+            each video in videoList.reverse()
                 +video(video)
             else
                 span 동영상이 존재하지 않습니다.
-                    
+        h1.profile__title 구독 (#{user.subscribes.length})
+        ul.profile__subscribe
+            each author in authorList.reverse()
+                a(href=`/users/${author._id}`).profile__user
+                    div.profile__user-avatar
+                        img(src=author.avatarUrl)
+                    div.profile__user-info
+                        h1.profile__user-name #{author.nickname}    
+            else
+                span 구독 중인 유튜버가 없습니다.

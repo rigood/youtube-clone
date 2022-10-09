@@ -4,8 +4,8 @@ const subscribeBtn = document.getElementById("subscribeBtn");
 
 const { id } = videoContainer.dataset;
 
-const showLike = (count) => alert(`Total 좋아요 개수 ${count}개`);
-const showSubscribe = (count) => alert(`Total 구독자 수 ${count}명`);
+const showLike = (count) => alert(`이 동영상의 좋아요 개수 ${count}개`);
+const showSubscribe = (count) => alert(`이 유튜버의 총 구독자 수 ${count}명`);
 
 const toggleLike = async (event) => {
   event.preventDefault();
@@ -28,6 +28,9 @@ const toggleSubscribe = async (event) => {
     const { result, count } = await response.json();
     styleSubscribe(result);
     showSubscribe(count);
+  }
+  if (response.status === 401) {
+    alert("🤣 본인 계정은 구독할 수 없어요.");
   }
 };
 
@@ -75,10 +78,15 @@ const initSubscribe = async () => {
     const { result } = await response.json();
     styleSubscribe(result);
   }
+  if (response.status === 204) {
+    return;
+  }
 };
 
 initLike();
 initSubscribe();
 
 likeBtn.addEventListener("click", toggleLike);
-subscribeBtn.addEventListener("click", toggleSubscribe);
+if (subscribeBtn) {
+  subscribeBtn.addEventListener("click", toggleSubscribe);
+}

@@ -297,18 +297,6 @@ export const see = async (req, res) => {
       populate: {
         path: "video",
       },
-    })
-    .populate({
-      path: "likes",
-      populate: {
-        path: "video",
-      },
-    })
-    .populate({
-      path: "subscribes",
-      populate: {
-        path: "video",
-      },
     });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });
@@ -332,7 +320,7 @@ export const like = async (req, res) => {
     .populate({
       path: "subscribes",
       populate: {
-        path: "video",
+        path: "author",
       },
     });
   if (!user) {
@@ -343,6 +331,11 @@ export const like = async (req, res) => {
   likeList.map((like) => {
     videoList.push(like.video);
   });
+  const subscribeList = user.subscribes;
+  let authorList = [];
+  subscribeList.map((subscribe) => {
+    authorList.push(subscribe.author);
+  });
 
-  return res.render("like", { pageTitle: user.nickname, user, videoList });
+  return res.render("like", { pageTitle: user.nickname, user, videoList, authorList });
 };

@@ -27,6 +27,7 @@ div.video__row
             img(src=video.author.avatarUrl).video__avatar
             span.video__author #{video.author.nickname}
     div.video__row-btns
-        button(type="button").video__row-btn#subscribeBtn 구독
+        unless String(video.author._id) === String(loggedInUser._id)
+            button(type="button").video__row-btn#subscribeBtn 구독
 
 p.video__description #{video.description}

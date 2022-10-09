@@ -305,7 +305,19 @@ export const initSubscribe = async (req, res) => {
     params: { id },
   } = req;
 
-  const subscribe = await Subscribe.findOne({ $and: [{ video: id }, { user: _id }] });
+  const video = await Video.findById(id);
+
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const authorId = video.author._id;
+
+  if (String(authorId) === String(_id)) {
+    return res.sendStatus(204);
+  }
+
+  const subscribe = await Subscribe.findOne({ $and: [{ user: _id }, { author: authorId }] });
 
   return res.status(200).json({
     result: subscribe ? true : false,
@@ -331,31 +343,37 @@ export const toggleSubscribe = async (req, res) => {
     return res.sendStatus(404);
   }
 
-  let subscribe = await Subscribe.findOne({ $and: [{ video: id }, { user: _id }] });
+  const authorId = video.author._id;
+
+  if (String(authorId) === String(user._id)) {
+    return res.sendStatus(401);
+  }
+
+  console.log(String(authorId), "😀");
+
+  let subscribe = await Subscribe.findOne({ $and: [{ user: _id }, { author: authorId }] });
+
+  console.log(subscribe, "😀");
 
   if (!subscribe) {
-    // create
     subscribe = await Subscribe.create({
       user: _id,
-      video: id,
+      author: authorId,
     });
-    // synchronize
-    video.subscribes.push(subscribe._id);
-    await video.save();
+
     user.subscribes.push(subscribe._id);
     await user.save();
   } else {
-    // delete
-    await Subscribe.findOneAndDelete({ $and: [{ video: id }, { user: _id }] });
-    // synchronize
-    video.subscribes.splice(video.subscribes.indexOf(subscribe._id), 1);
-    await video.save();
+    await Subscribe.findOneAndDelete({ $and: [{ user: _id }, { author: authorId }] });
+
     user.subscribes.splice(user.subscribes.indexOf(subscribe._id), 1);
     await user.save();
     subscribe = null;
   }
 
-  const subscribes = await Subscribe.find({ video: id });
+  console.log(subscribe, "😀");
+
+  const subscribes = await Subscribe.find({ author: authorId });
   const count = subscribes.length;
 
   return res.status(200).json({
