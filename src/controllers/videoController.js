@@ -229,10 +229,6 @@ export const registerView = async (req, res) => {
 };
 
 export const createComment = async (req, res) => {
-  if (req.session.user === undefined) {
-    return res.status(401).redirect("/login");
-  }
-
   const {
     session: {
       user: { _id },
@@ -297,8 +293,6 @@ export const deleteComment = async (req, res) => {
     req.flash("error", "댓글 삭제 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
-
-  console.log(`💚 비디오 ${videoId}, 코멘트 ${commentId}, 유저 ${_id}`);
 
   // 코멘트 삭제
   await Comment.findByIdAndDelete(commentId);
