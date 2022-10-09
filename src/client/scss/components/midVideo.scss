@@ -51,7 +51,13 @@
 
 @media (max-width: 750px) {
   .mid-mixin {
-    grid-template-rows: 1fr 1fr;
-    gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    .mid-mixin__info {
+      font-size: 10px;
+      .aside-mixin__title {
+        font-size: 14px;
+      }
+    }
   }
 }
