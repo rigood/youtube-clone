@@ -115,11 +115,11 @@ const handleSubmit = async (event) => {
     body: JSON.stringify({ text }),
   });
 
-  // if (response.status === 201) {
-  //   commentInput.value = "";
-  //   const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
-  //   addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
-  // }
+  if (response.status === 201) {
+    commentInput.value = "";
+    const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
+    addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
+  }
 
   // const pathname = new URL(response.url).pathname;
   // if (pathname === "/login") {
