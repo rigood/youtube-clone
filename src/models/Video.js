@@ -12,6 +12,8 @@ const videoSchema = new mongoose.Schema({
   thumbUrl: { type: String, required: true },
   author: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Like" }],
+  subscribes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subscribe" }],
 });
 
 videoSchema.static("formatHashtags", function (hashtags) {

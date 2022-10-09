@@ -5,6 +5,8 @@ import "./db";
 import "./models/User";
 import "./models/Video";
 import "./models/Comment";
+import "./models/Like";
+import "./models/Subscribe";
 
 import app from "./server";
 
