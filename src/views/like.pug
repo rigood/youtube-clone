@@ -22,11 +22,12 @@ block content
                 span 동영상이 존재하지 않습니다.
         h1.profile__title 구독 (#{user.subscribes.length})
         ul.profile__subscribe
-            each author in authorList.reverse()
-                a(href=`/users/${author._id}`).profile__user
-                    div.profile__user-avatar
-                        img(src=author.avatarUrl)
-                    div.profile__user-info
-                        h1.profile__user-name #{author.nickname}    
+            if(authorList)
+                each author in authorList.reverse()
+                    a(href=`/users/${author._id}`).profile__user
+                        div.profile__user-avatar
+                            img(src=author.avatarUrl)
+                        div.profile__user-info
+                            h1.profile__user-name #{author.nickname}    
             else
                 span 구독 중인 유튜버가 없습니다.
