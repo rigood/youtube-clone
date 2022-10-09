@@ -97,29 +97,29 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  const text = commentInput.value;
-  const videoId = videoContainer.dataset.id;
+  if (form.dataset.id) {
+    const text = commentInput.value;
+    const videoId = videoContainer.dataset.id;
 
-  if (text === "") {
-    return;
-  }
+    if (text === "") {
+      return;
+    }
 
-  const response = await fetch(`/api/videos/${videoId}/comment`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ text }),
-  });
+    const response = await fetch(`/api/videos/${videoId}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text }),
+    });
 
-  if (response.status === 201) {
-    commentInput.value = "";
-    const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
-    addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
-  }
-
-  if (response.status !== 201) {
-    window.location.href = "https://rigood-youtube.herokuapp.com/login";
+    if (response.status === 201) {
+      commentInput.value = "";
+      const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
+      addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
+    }
+  } else {
+    window.location.href = "/login";
   }
 };
 
