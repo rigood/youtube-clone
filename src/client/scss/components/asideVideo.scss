@@ -26,3 +26,9 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .aside-mixin {
+    padding: 0 20px;
+  }
+}
