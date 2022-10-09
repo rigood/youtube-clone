@@ -324,6 +324,9 @@ export const like = async (req, res) => {
       path: "likes",
       populate: {
         path: "video",
+        populate: {
+          path: "author",
+        },
       },
     })
     .populate({
