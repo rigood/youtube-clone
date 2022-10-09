@@ -1,9 +1,9 @@
 .aside-mixin {
   display: grid;
   grid-template-columns: 168px auto;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   .aside-mixin__thumb {
     padding-top: 56.25%;
     background-size: cover;
@@ -29,6 +29,7 @@
 
 @media (max-width: 1024px) {
   .aside-mixin {
+    grid-template-columns: 2fr 3fr;
     padding: 0 20px;
   }
 }
