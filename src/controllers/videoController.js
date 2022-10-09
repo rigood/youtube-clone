@@ -349,11 +349,7 @@ export const toggleSubscribe = async (req, res) => {
     return res.sendStatus(401);
   }
 
-  console.log(String(authorId), "😀");
-
   let subscribe = await Subscribe.findOne({ $and: [{ user: _id }, { author: authorId }] });
-
-  console.log(subscribe, "😀");
 
   if (!subscribe) {
     subscribe = await Subscribe.create({
@@ -370,8 +366,6 @@ export const toggleSubscribe = async (req, res) => {
     await user.save();
     subscribe = null;
   }
-
-  console.log(subscribe, "😀");
 
   const subscribes = await Subscribe.find({ author: authorId });
   const count = subscribes.length;
