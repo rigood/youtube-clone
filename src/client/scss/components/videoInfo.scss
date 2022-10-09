@@ -1,7 +1,7 @@
 .video__row {
   display: grid;
   grid-template-columns: auto max-content;
-  margin-top: 20px;
+  margin-top: 10px;
   .video__row-info {
     .video__hashtags {
       .video__hashtag {
@@ -62,7 +62,6 @@ hr {
 .video__description {
   margin-top: 20px;
   margin-bottom: 40px;
-  padding: 0 10px;
   font-size: 14px;
   white-space: pre;
 }

@@ -36,5 +36,6 @@
 @media (max-width: 501px) {
   .aside-mixin {
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 }
