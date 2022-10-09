@@ -73,8 +73,10 @@ input {
 }
 
 @media (max-width: 501px) {
+  .container,
   .container-center {
     padding-top: 25px;
+    padding-bottom: 50px;
   }
 }
 

@@ -51,6 +51,7 @@
 
 @media (max-width: 750px) {
   .mid-mixin {
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
   }
 }
