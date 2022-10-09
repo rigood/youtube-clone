@@ -229,6 +229,10 @@ export const registerView = async (req, res) => {
 };
 
 export const createComment = async (req, res) => {
+  // if (req.session.user === undefined) {
+  //   return res.status(401).redirect("/login");
+  // }
+
   const {
     session: {
       user: { _id },

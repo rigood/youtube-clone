@@ -7,8 +7,8 @@ div.comment__mixin
         img(src=loggedInUser.avatarUrl).comment__avatar
     else
         img(src="/static/img/default.jpg").comment__avatar
-    form(data-id=loggedInUser._id)#commentForm.comment__contents
-        input(placeholder="댓글 추가...", required)#commentInput
+    form#commentForm.comment__contents
+        input(placeholder=loggedIn? "댓글 추가..." : "로그인 후 이용 가능합니다.", data-user-id=loggedInUser._id)#commentInput
         div.comment__form-btns
             button(type="button")#commentCancel 취소
             button(type="submit") 댓글

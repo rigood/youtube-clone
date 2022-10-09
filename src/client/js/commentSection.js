@@ -96,31 +96,35 @@ const addComment = (text, commentId, authorId, avatarUrl, nickname, createdAt) =
 
 const handleSubmit = async (event) => {
   event.preventDefault();
-
-  if (form.dataset.id) {
-    const text = commentInput.value;
-    const videoId = videoContainer.dataset.id;
-
-    if (text === "") {
-      return;
-    }
-
-    const response = await fetch(`/api/videos/${videoId}/comment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
-
-    if (response.status === 201) {
-      commentInput.value = "";
-      const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
-      addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
-    }
-  } else {
-    window.location.href = "/login";
+  if (!commentInput.dataset.userId) {
+    location.href = "/login";
   }
+
+  const text = commentInput.value;
+  const videoId = videoContainer.dataset.id;
+
+  if (text === "") {
+    return;
+  }
+
+  const response = await fetch(`/api/videos/${videoId}/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ text }),
+  });
+
+  // if (response.status === 201) {
+  //   commentInput.value = "";
+  //   const { newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt } = await response.json();
+  //   addComment(text, newCommentId, authorId, authorAvatarUrl, authorNickname, createdAt);
+  // }
+
+  // const pathname = new URL(response.url).pathname;
+  // if (pathname === "/login") {
+  //   location.href = "/login";
+  // }
 };
 
 const handleDelete = async (event) => {
@@ -150,17 +154,20 @@ const handleDelete = async (event) => {
 
 const handleCancel = (event) => {
   event.preventDefault();
+  if (!commentInput.dataset.userId) {
+    location.href = "/login";
+  }
   commentInput.value = "";
 };
 
-if (form) {
-  form.addEventListener("submit", handleSubmit);
-}
+const handleInput = (event) => {
+  event.preventDefault();
+  if (!commentInput.dataset.userId) {
+    location.href = "/login";
+  }
+};
 
-if (deleteBtn) {
-  deleteBtn.forEach((btn) => btn.addEventListener("click", handleDelete));
-}
-
-if (cancelBtn) {
-  cancelBtn.addEventListener("click", handleCancel);
-}
+form.addEventListener("submit", handleSubmit);
+commentInput.addEventListener("focus", handleInput);
+deleteBtn.forEach((btn) => btn.addEventListener("click", handleDelete));
+cancelBtn.addEventListener("click", handleCancel);
