@@ -288,7 +288,8 @@ export const toggleLike = async (req, res) => {
     like = null;
   }
 
-  const count = await Like.countDocuments();
+  const likes = await Like.find({ video: id });
+  const count = likes.length;
 
   return res.status(200).json({
     result: like ? true : false,
@@ -354,7 +355,8 @@ export const toggleSubscribe = async (req, res) => {
     subscribe = null;
   }
 
-  const count = await Subscribe.countDocuments();
+  const subscribes = await Subscribe.find({ video: id });
+  const count = subscribes.length;
 
   return res.status(200).json({
     result: subscribe ? true : false,

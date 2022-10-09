@@ -297,11 +297,49 @@ export const see = async (req, res) => {
       populate: {
         path: "video",
       },
+    })
+    .populate({
+      path: "likes",
+      populate: {
+        path: "video",
+      },
+    })
+    .populate({
+      path: "subscribes",
+      populate: {
+        path: "video",
+      },
     });
-
   if (!user) {
     return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });
   }
 
   return res.render("profile", { pageTitle: user.nickname, user });
+};
+
+export const like = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id)
+    .populate({
+      path: "likes",
+      populate: {
+        path: "video",
+      },
+    })
+    .populate({
+      path: "subscribes",
+      populate: {
+        path: "video",
+      },
+    });
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "존재하지 않는 사용자입니다." });
+  }
+  const likeList = user.likes;
+  let videoList = [];
+  likeList.map((like) => {
+    videoList.push(like.video);
+  });
+
+  return res.render("like", { pageTitle: user.nickname, user, videoList });
 };

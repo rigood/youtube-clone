@@ -1,6 +1,6 @@
 import express from "express";
 
-import { logout, getEdit, postEdit, getChangePw, postChangePw, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, see } from "../controllers/userController";
+import { logout, getEdit, postEdit, getChangePw, postChangePw, startGithubLogin, finishGithubLogin, startKakaoLogin, finishKakaoLogin, see, like } from "../controllers/userController";
 
 import { protectorMiddleware, publicOnlyMiddleware, avatarUpload } from "../middlewares";
 
@@ -18,6 +18,7 @@ userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
 userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 
+userRouter.get("/:id([0-9a-f]{24})/like", like);
 userRouter.get("/:id([0-9a-f]{24})", see);
 
 export default userRouter;

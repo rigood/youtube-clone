@@ -1,0 +1,23 @@
+extends base-with-nav
+include mixins/mid-video
+
+block content
+    div.container
+        h1.profile__title 기본 정보
+        div.profile__user
+            div.profiile__user-avatar
+                img(src=user.avatarUrl)
+            div.profile__user-info
+                h1.profile__user-name #{user.nickname}
+                div.profile__user-meta
+                    if(user.socialOnly===true)
+                        span 소셜 로그인
+                    else
+                        span 일반 로그인
+        h1.profile__title 좋아요 표시한 동영상 (#{user.likes.length})
+        div.profile__videos
+            each video in videoList
+                +video(video)
+            else
+                span 동영상이 존재하지 않습니다.
+                    

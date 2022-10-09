@@ -18,9 +18,13 @@ header
                         i.fas.fa-video
                         span.tooltip 업로드
                 li.header__icon
+                    a(href=`/users/${loggedInUser._id}/like`).tooltip-target
+                        i.fas.fa-layer-group
+                        span.tooltip 좋아요 • 구독
+                li.header__icon
                     a(href=`/users/edit`).tooltip-target
                         i.fas.fa-gear
-                        span.tooltip 정보수정
+                        span.tooltip 프로필 편집
                 li.header__icon
                     a(href="/users/logout").tooltip-target
                         i.fas.fa-arrow-right-from-bracket
